@@ -1,72 +1,132 @@
-# 🌪️ AI Extreme Weather Intelligence Platform
+<div align="center">
+  <img src="https://img.icons8.com/color/144/000000/storm.png" alt="Logo" width="80" height="80">
+  <h1 align="center">AI Extreme Weather Intelligence Platform</h1>
+  
+  <p align="center">
+    <strong>A next-generation meteorological intelligence dashboard powered by AI downscaling.</strong>
+    <br />
+    <br />
+    <a href="#-architecture">Architecture</a>
+    ·
+    <a href="#-features">Features</a>
+    ·
+    <a href="#-tech-stack">Tech Stack</a>
+    ·
+    <a href="#-getting-started">Getting Started</a>
+  </p>
+</div>
 
-![Dashboard Preview](https://img.shields.io/badge/Status-Active-success)
-![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js)
-![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react)
-![Python](https://img.shields.io/badge/Python-ML_Pipeline-3776AB?logo=python)
+---
 
-An advanced meteorological intelligence platform that leverages AI to downscale coarse climate data, predict extreme weather events, and assess vulnerability risks across infrastructure, population, and agriculture.
+## 🌍 Overview
 
-## 🏗️ Repository Structure
+The **AI Extreme Weather Intelligence Platform** predicts high-impact extreme weather events by taking coarse, low-resolution climate data (like ERA5) and passing it through a custom **Residual Random Forest** pipeline. This generates high-resolution, localized rainfall maps at a 0.05° scale, providing real-time impact assessments for populations, infrastructure, and agriculture.
 
-This repository is organized into distinct microservices and pipelines:
+---
+
+## 🏗️ Architecture
+
+The system operates across three core domains: Data Ingestion/AI, the Backend Server, and the Frontend Dashboard. 
+
+```mermaid
+graph TD
+    subgraph Data & AI Layer
+        A[ERA5 Global Reanalysis <br/> 0.25° Resolution] --> C
+        B[CHIRPS <br/> Historical Truth] -.->|Training Data| C
+        C((AI Downscaling Model <br/> Residual Random Forest)) -->|Inference| D[High-Res Prediction <br/> 0.05° Scale]
+    end
+
+    subgraph Backend Services Node.js
+        D -->|NumPy / GeoTIFF| E[Express API]
+        E -->|Vulnerability Engine| F[Risk Assessment]
+    end
+
+    subgraph Frontend React
+        E -->|GeoJSON Stream| G[Interactive Leaflet Maps]
+        F -->|Risk Metrics API| H[Vulnerability Dashboard]
+    end
+
+    classDef ai fill:#3776AB,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef backend fill:#339933,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef frontend fill:#61DAFB,stroke:#fff,stroke-width:2px,color:#000;
+    
+    class C ai;
+    class E backend;
+    class G,H frontend;
+```
+
+---
+
+## 🚀 Key Features
+
+| Feature | Description | Impact |
+|---------|-------------|--------|
+| 🌦️ **AI Downscaling** | Converts 25km resolution climate data to 5km hyper-local grids using Machine Learning. | Unlocks localized precision for micro-climates. |
+| 📊 **Risk Intelligence** | Automatically calculates vulnerability metrics across Population, Transport, and Agriculture. | Enables data-driven emergency response. |
+| 🗺️ **3D Spatial Maps** | Interactive, glassmorphism-themed UI with Leaflet integration to compare Truth vs AI grids. | Beautiful, premium user experience. |
+| 📈 **Trend Analysis** | 7-day visual forecasting with automated progress bars and area charts. | Instant recognition of escalating weather risks. |
+
+---
+
+## 💻 Tech Stack
+
+### Frontend
+- **Framework**: React + Vite
+- **Styling**: Tailwind CSS (with Glassmorphism & 3D CSS effects)
+- **Data Visualization**: Recharts, React-Leaflet
+- **Icons**: Lucide React
+
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Integration**: `child_process` bridging Python scripts for on-the-fly matrix evaluation.
+
+### AI & Machine Learning
+- **Languages/Libraries**: Python, NumPy, Scikit-learn, Xarray
+- **Model Architecture**: Residual Random Forest (designed for extreme value correction)
+
+---
+
+## 📂 Repository Structure
 
 ```text
 📦 weather
- ┣ 📂 weather-dashboard/    # React/Tailwind Frontend Dashboard
- ┣ 📂 weather-backend/      # Node.js/Express API & Data Ingestion
- ┣ 📂 final_model/          # Core Machine Learning Models (Residual RF)
- ┣ 📂 ai/                   # AI Data Exploration & Processing Scripts
- ┣ 📂 docs/                 # Documentation and Reference Materials
- ┗ 📜 README.md             # Project Documentation
+ ┣ 📂 weather-dashboard/    # 🎨 React/Tailwind Frontend Dashboard
+ ┣ 📂 weather-backend/      # ⚙️ Node.js/Express API & Data Ingestion
+ ┣ 📂 final_model/          # 🧠 Core Machine Learning Models & Training History
+ ┣ 📂 ai/                   # 🔬 AI Data Exploration & Processing Scripts
+ ┣ 📂 docs/                 # 📚 Documentation and Extraneous Materials
+ ┗ 📜 README.md             # 📖 You are here
 ```
 
-### 1. Frontend (`weather-dashboard/`)
-A state-of-the-art React application built with Tailwind CSS and Recharts. Features 3D glassmorphism UI components, interactive Leaflet maps, and real-time data visualization for meteorological intelligence.
-- **Tech Stack**: React, Vite, Tailwind CSS, React-Leaflet, Recharts
+---
 
-### 2. Backend (`weather-backend/`)
-A robust Node.js backend that serves AI predictions, handles large-scale meteorological datasets (GeoJSON, TIFF), and simulates downscaling processes.
-- **Tech Stack**: Express.js, child_process (Python integration), CORS
+## 🏁 Getting Started
 
-### 3. AI & ML Pipeline (`final_model/` & `ai/`)
-Python-based pipelines for processing ERA5 and CHIRPS meteorological data, training Residual Random Forest models, and executing spatial downscaling tasks to generate high-resolution risk maps.
-- **Tech Stack**: Python, NumPy, Matplotlib, Scikit-learn, Xarray
+### 1. Start the Backend Server
+
+Open a terminal and navigate to the backend directory:
+
+```bash
+cd weather-backend
+npm install
+npm start
+```
+*The backend API will run on `http://localhost:3000`*
+
+### 2. Start the Frontend Dashboard
+
+Open a separate terminal and navigate to the dashboard directory:
+
+```bash
+cd weather-dashboard
+npm install
+npm run dev
+```
+*The frontend will run locally on `http://localhost:5173`*
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v16+)
-- Python (3.8+)
-- npm or yarn
-
-### Running the Application
-
-1. **Start the Backend Server**
-   ```bash
-   cd weather-backend
-   npm install
-   npm start
-   ```
-   *The backend will run on `http://localhost:3000`*
-
-2. **Start the Frontend Dashboard**
-   ```bash
-   cd weather-dashboard
-   npm install
-   npm run dev
-   ```
-   *The frontend will run on `http://localhost:5173`*
-
----
-
-## 🌟 Key Features
-- **AI Rainfall Downscaling**: Dynamically downscales coarse ERA5 global fields to 0.05° local resolution.
-- **Risk Intelligence**: Real-time vulnerability metrics for population, infrastructure, and agriculture.
-- **7-Day Trend Analysis**: Automated trend extraction using 3D visual components.
-- **Interactive Spatial Mapping**: High-contrast meteorological maps with multiple data layers (Truth vs. AI Prediction).
-
-## 🛡️ License
-This project is licensed under the MIT License.
+<div align="center">
+  <i>Developed to revolutionize meteorological intelligence.</i>
+</div>
