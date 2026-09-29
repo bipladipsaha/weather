@@ -688,8 +688,24 @@ export default function App() {
                       Severe <strong className="text-red-500">{alert.hazard.toLowerCase()}</strong> expected shortly. Please stay indoors, keep emergency kits ready, and follow local news broadcasts. Over {(alert.affectedAssets?.population||0).toLocaleString()} people are in the affected zone.
                     </p>
                     <div className="flex flex-wrap gap-3">
-                      <button className="text-xs font-bold px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30 hover:-translate-y-0.5 transition-all">Read Full Advisory</button>
-                      <button className="text-xs font-bold px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300 transition-all">Share with Family</button>
+                      <button 
+                        onClick={() => window.alert(`ADVISORY DETAILS:\n\nLocation: ${alert.location}\nHazard: ${alert.hazard}\nSeverity: HIGH\n\nPlease remain indoors and monitor local news. Emergency response teams are on standby in ${alert.location}.`)}
+                        className="text-xs font-bold px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30 hover:-translate-y-0.5 transition-all">
+                        Read Full Advisory
+                      </button>
+                      <button 
+                        onClick={() => {
+                          const msg = `URGENT: Severe ${alert.hazard.toLowerCase()} expected in ${alert.location}. Please stay indoors and be safe!`;
+                          if (navigator.share) {
+                            navigator.share({ title: 'Safety Alert', text: msg }).catch(console.error);
+                          } else {
+                            navigator.clipboard.writeText(msg);
+                            window.alert('Warning message copied to clipboard! You can now paste it to your family via WhatsApp or SMS.');
+                          }
+                        }}
+                        className="text-xs font-bold px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300 transition-all">
+                        Share with Family
+                      </button>
                     </div>
                   </div>
                 </div>
