@@ -443,7 +443,17 @@ export default function App() {
 
 
   const renderForecast = () => {
-    const timesteps = forecastData?.timesteps || ['T+24h', 'T+48h', 'T+72h', 'T+96h', 'T+120h'];
+    // Convert T+24h style to user friendly labels
+    const getFriendlyDay = (ts) => {
+      const hours = parseInt(ts.replace('T+', '').replace('h', ''));
+      if (isNaN(hours)) return ts;
+      const days = hours / 24;
+      if (days === 1) return 'Tomorrow';
+      return `In ${days} Days`;
+    };
+
+    const rawTimesteps = forecastData?.timesteps || ['T+24h', 'T+48h', 'T+72h', 'T+96h', 'T+120h', 'T+144h', 'T+168h'];
+    const timesteps = rawTimesteps.map(getFriendlyDay);
     const anomalies = forecastData?.anomalies || [];
     
     // Build chart data from anomalies grouped by timestep
@@ -454,111 +464,118 @@ export default function App() {
       const avgProb = anomalies.length > 0
         ? anomalies.reduce((sum, a) => sum + (a.probability || 0), 0) / anomalies.length
         : 80;
-      return { name: ts, anomaly: parseFloat(avgAnomaly.toFixed(2)), probability: parseFloat((avgProb * (1 - i * 0.05)).toFixed(1)) };
+      return { 
+        name: ts, 
+        intensity: parseFloat(avgAnomaly.toFixed(2)), 
+        confidence: parseFloat((avgProb * (1 - i * 0.05)).toFixed(1)) 
+      };
     });
 
     return (
       <div className="space-y-8">
         <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-8 uppercase tracking-widest">Medium-Range Forecast Horizon ({forecastData?.horizon || 'T+120h'})</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-8 uppercase tracking-widest flex items-center">
+            <CloudLightning className="w-5 h-5 mr-3 text-sky-500" /> 7-Day Risk Forecast
+          </h2>
           <div className="flex justify-between items-center mb-4 px-4 relative mt-6">
-            <div className="absolute top-[40%] left-4 right-4 h-0.5 bg-slate-200 -z-10"></div>
+            <div className="absolute top-[40%] left-4 right-4 h-1 bg-slate-100 rounded-full -z-10"></div>
             {timesteps.map((ts, i) => {
               const data = anomalyChartData[i];
-              const isHighRisk = data.probability > 70;
+              const isHighRisk = data.confidence > 70;
+              
+              // Map intensity to human words
+              let severityWord = 'Moderate';
+              let bgColor = 'bg-white text-slate-600 border border-slate-200';
+              if (data.intensity > 4) { severityWord = 'Extreme'; bgColor = 'bg-rose-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.4)] border-none'; }
+              else if (data.intensity > 2.5) { severityWord = 'Severe'; bgColor = 'bg-orange-500 text-white shadow-[0_0_15px_rgba(249,115,22,0.4)] border-none'; }
+              else if (data.intensity > 1) { severityWord = 'High'; bgColor = 'bg-amber-400 text-white shadow-[0_0_15px_rgba(251,191,36,0.4)] border-none'; }
+
               return (
               <div key={ts} className="flex flex-col items-center cursor-pointer group relative">
-                <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-[10px] px-2 py-1 rounded shadow-lg whitespace-nowrap z-20 pointer-events-none">
-                  Max Anomaly: +{data.anomaly}σ
-                </div>
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md mb-3 z-10 transition-transform group-hover:scale-110 ${isHighRisk ? 'bg-orange-500 text-white shadow-[0_0_15px_rgba(249,115,22,0.4)] border-none' : 'bg-white text-slate-600 border border-slate-200'}`}>
-                  <span className="text-xs font-bold">{data.anomaly}σ</span>
+                <div className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center shadow-sm mb-3 z-10 transition-transform group-hover:-translate-y-2 group-hover:scale-110 ${bgColor}`}>
+                  <span className="text-[10px] uppercase font-bold opacity-80 mb-0.5">Level</span>
+                  <span className="text-sm font-black">{Math.round(data.intensity * 2)}</span>
                 </div>
                 <span className="text-sm font-bold text-slate-700">{ts}</span>
-                <span className={`text-xs font-bold mt-1 ${isHighRisk ? 'text-orange-500' : 'text-slate-400'}`}>{data.probability}% Risk</span>
+                <span className={`text-xs font-bold mt-1 ${isHighRisk ? 'text-rose-500' : 'text-slate-400'}`}>{severityWord} Risk</span>
               </div>
             )})}
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Extreme Anomaly Analysis</h3>
-            <div className="h-64">
+          <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 relative overflow-hidden">
+            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6 relative z-10">Expected Event Intensity</h3>
+            <div className="h-64 relative z-10">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={anomalyChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                   <XAxis dataKey="name" stroke="#cbd5e1" tick={{fill: '#64748b', fontSize: 11, fontWeight: 600}} axisLine={false} tickLine={false} />
                   <YAxis stroke="#cbd5e1" tick={{fill: '#64748b', fontSize: 11, fontWeight: 600}} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#1e293b', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)'}} />
-                  <Area type="monotone" dataKey="anomaly" stroke="#f87171" strokeWidth={3} fill="rgba(239, 68, 68, 0.1)" name="Anomaly (σ)" />
+                  <Tooltip contentStyle={{backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#1e293b', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)'}} formatter={(value) => [value, "Intensity Level"]} />
+                  <Area type="monotone" dataKey="intensity" stroke="#f43f5e" strokeWidth={3} fill="rgba(244, 63, 94, 0.1)" name="Intensity" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
           
           <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Probability Decay Over Lead Time</h3>
+            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">AI Prediction Confidence</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={anomalyChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                   <XAxis dataKey="name" stroke="#cbd5e1" tick={{fill: '#64748b', fontSize: 11, fontWeight: 600}} axisLine={false} tickLine={false} />
                   <YAxis stroke="#cbd5e1" domain={[0, 100]} tick={{fill: '#64748b', fontSize: 11, fontWeight: 600}} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#1e293b', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)'}} />
-                  <Line type="monotone" dataKey="probability" stroke="#0ea5e9" strokeWidth={3} dot={{fill: '#0ea5e9', r: 5, strokeWidth: 2, stroke: '#fff'}} name="Probability (%)" />
+                  <Tooltip contentStyle={{backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#1e293b', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)'}} formatter={(value) => [value + "%", "Confidence"]} />
+                  <Line type="monotone" dataKey="confidence" stroke="#0ea5e9" strokeWidth={3} dot={{fill: '#0ea5e9', r: 5, strokeWidth: 2, stroke: '#fff'}} name="Confidence" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </div>
         </div>
 
-        {/* Spatio-Temporal Event Evolution Grid */}
         {anomalies.length > 0 && (
           <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">Spatio-Temporal Event Evolution</h3>
+            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">Detailed Daily Risk Breakdown</h3>
             <div className="overflow-x-auto custom-scrollbar pb-4">
               <div className="min-w-[900px]">
-                {/* Header Row */}
                 <div className="grid grid-cols-6 gap-4 mb-4 px-4">
-                  <div className="col-span-1 text-xs font-bold text-slate-400 uppercase tracking-wider">Event Target</div>
-                  {timesteps.map(ts => (
-                     <div key={ts} className="col-span-1 text-center text-xs font-bold text-slate-400 uppercase tracking-wider">{ts}</div>
-                  ))}
+                  <div className="col-span-1 text-xs font-bold text-slate-400 uppercase tracking-wider">Affected Region</div>
+                  {timesteps.map((ts, i) => {
+                    // Only show 5 columns due to grid-cols-6
+                    if (i >= 5) return null;
+                    return <div key={ts} className="col-span-1 text-center text-xs font-bold text-slate-400 uppercase tracking-wider">{ts}</div>
+                  })}
                 </div>
                 
-                {/* Evolution Rows */}
                 <div className="space-y-4">
                   {anomalies.slice(0, 6).map((a, eIdx) => (
-                     <div key={a.eventId} className="grid grid-cols-6 gap-4 items-center bg-slate-50/30 p-3 rounded-2xl hover:bg-slate-50/80 transition-colors border border-slate-50">
+                     <div key={a.eventId} className="grid grid-cols-6 gap-4 items-center bg-slate-50/50 p-3 rounded-2xl hover:bg-slate-100 transition-colors border border-slate-100">
                         <div className="col-span-1 flex flex-col justify-center px-2">
                           <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
                             <div className={`w-2 h-2 rounded-full ${HAZARD_COLORS[a.category]?.bg.replace('10', '500') || 'bg-slate-300'}`}></div>
-                            {a.eventId}
+                            Zone {a.eventId.split('-').pop()}
                           </span>
-                          <span className={`text-[10px] font-bold uppercase mt-1.5 ml-4 px-2 py-0.5 rounded-md w-max border ${HAZARD_COLORS[a.category]?.bg} ${HAZARD_COLORS[a.category]?.text} ${HAZARD_COLORS[a.category]?.border}`}>{a.category}</span>
+                          <span className={`text-[10px] font-bold uppercase mt-1.5 px-2 py-0.5 rounded-md w-max border ${HAZARD_COLORS[a.category]?.bg} ${HAZARD_COLORS[a.category]?.text} ${HAZARD_COLORS[a.category]?.border}`}>{a.type || a.category}</span>
                         </div>
                         {timesteps.map((ts, tIdx) => {
-                           // Simulate realistic trajectory curve based on event and timestep index
+                           if (tIdx >= 5) return null;
                            const phaseOffset = eIdx * 1.5;
                            const rawIntensity = Math.sin((tIdx * 0.8) + phaseOffset);
-                           const intensity = Math.max(0.1, Math.abs(rawIntensity) * 0.8 + 0.2); // Keep between 0.1 and 1.0
+                           const intensity = Math.max(0.1, Math.abs(rawIntensity) * 0.8 + 0.2); 
                            
-                           // Determine color coding based on intensity severity
-                           const colorLevel = intensity > 0.8 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]' : 
-                                              intensity > 0.5 ? 'bg-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 
-                                              intensity > 0.3 ? 'bg-amber-300' : 'bg-green-400';
-                                              
-                           const textColor = intensity > 0.8 ? 'text-red-500' : 
-                                             intensity > 0.5 ? 'text-orange-500' : 'text-slate-700';
+                           let status = 'Safe';
+                           let badgeClass = 'bg-green-100 text-green-700 border-green-200';
+                           if (intensity > 0.8) { status = 'Extreme'; badgeClass = 'bg-rose-100 text-rose-700 border-rose-200'; }
+                           else if (intensity > 0.5) { status = 'Severe'; badgeClass = 'bg-orange-100 text-orange-700 border-orange-200'; }
+                           else if (intensity > 0.3) { status = 'Elevated'; badgeClass = 'bg-amber-100 text-amber-700 border-amber-200'; }
 
                            return (
-                             <div key={ts} className="col-span-1 flex flex-col items-center justify-center py-4 px-2 rounded-[16px] bg-white border border-slate-100 shadow-sm relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer">
-                               {/* Intensity Bar Indicator */}
-                               <div className={`absolute bottom-0 left-0 right-0 h-1.5 ${colorLevel}`}></div>
-                               
-                               <span className={`text-base font-bold ${textColor}`}>+{((a.maxAnomaly || 4) * intensity).toFixed(1)}σ</span>
-                               <span className="text-[10px] text-slate-400 font-bold mt-1.5 uppercase tracking-wider">{(a.probability * intensity).toFixed(0)}% Prob</span>
+                             <div key={ts} className="col-span-1 flex flex-col items-center justify-center py-4 px-2 rounded-[16px] bg-white border border-slate-100 shadow-sm relative overflow-hidden group hover:scale-[1.05] transition-transform cursor-pointer">
+                               <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border mb-1.5 ${badgeClass}`}>{status}</span>
+                               <span className="text-sm font-bold text-slate-700">Risk Level {Math.round(intensity * 10)}</span>
+                               <div className={`absolute bottom-0 left-0 right-0 h-1 ${badgeClass.split(' ')[0].replace('100', '400')}`}></div>
                              </div>
                            );
                         })}
