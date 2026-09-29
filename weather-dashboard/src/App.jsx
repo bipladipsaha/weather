@@ -1410,166 +1410,160 @@ export default function App() {
   };
 
   const renderSystem = () => (
-    <div className="bg-slate-950 rounded-[40px] shadow-[0_20px_60px_rgb(0,0,0,0.4)] p-12 w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden relative text-slate-300 border border-slate-800">
-      {/* Background glowing effects */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10 rounded-[40px]">
-        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 rounded-full blur-[120px]"></div>
-        <div className="absolute top-[40%] left-[30%] w-[20%] h-[20%] bg-cyan-500/10 rounded-full blur-[80px]"></div>
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0ibm9uZSIvPgo8cGF0aCBkPSJNMCA0MEwwIDAgNDAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-50"></div>
-      </div>
-
-      <div className="max-w-5xl mx-auto relative z-10">
-        <header className="mb-12 flex items-center justify-between border-b border-slate-800 pb-8">
+    <div className="bg-slate-50 rounded-[40px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 lg:p-12 w-full h-[calc(100vh-80px)] overflow-y-auto relative text-slate-800 border border-slate-200">
+      <div className="max-w-6xl mx-auto">
+        <header className="mb-12 border-b border-slate-200 pb-8 flex justify-between items-end">
           <div>
-            <h2 className="text-4xl font-black text-white tracking-tight flex items-center gap-4">
-              <Server className="w-10 h-10 text-blue-500" /> SYSTEM ARCHITECTURE
+            <h2 className="text-4xl font-black tracking-tight text-slate-900 flex items-center gap-4">
+              <Server className="w-10 h-10 text-blue-600" /> AI Pipeline Architecture
             </h2>
-            <p className="text-slate-400 mt-2 font-medium tracking-wide">Live Meteorological AI Processing Pipeline</p>
+            <p className="text-slate-500 mt-3 text-lg max-w-2xl">
+              A comprehensive view of how meteorological data flows through our deep learning models to predict extreme weather events.
+            </p>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-6 shadow-xl">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">System Mode</span>
-              <span className="text-emerald-400 font-mono font-bold flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgb(16,185,129)]"></div>
-                {systemStatus?.system_mode || 'OPERATIONAL'}
-              </span>
-            </div>
-            <div className="w-px h-8 bg-slate-800"></div>
-            <div className="flex flex-col">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">API Health</span>
-              <span className="text-white font-mono font-bold">100% NOMINAL</span>
-            </div>
+          <div className="hidden lg:block text-right">
+            <span className="inline-block bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+              Status: Operational
+            </span>
+            <p className="text-sm font-mono text-slate-400">Current Node: Pipeline v1.2</p>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Section 1: Data Sources */}
-          <section className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-[32px] p-8 hover:border-slate-700 transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full -z-10 group-hover:bg-blue-500/20 transition-colors"></div>
-            <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
-              <div className="bg-blue-500/20 text-blue-400 p-2.5 rounded-xl"><Database size={22} /></div>
-              Data Sources
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
-                <div className="text-blue-400 font-black text-xl font-mono">01</div>
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">ERA5 & ERA5-Land</h4>
-                  <p className="text-xs text-slate-400">ECMWF Reanalysis v5 Global Climate Data</p>
-                </div>
-              </li>
-              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
-                <div className="text-blue-400 font-black text-xl font-mono">02</div>
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">NWP / Ensemble Forecasts</h4>
-                  <p className="text-xs text-slate-400">Simulated/Demo via NEPS-G proxy streams</p>
-                </div>
-              </li>
-              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
-                <div className="text-blue-400 font-black text-xl font-mono">03</div>
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">Open-Meteo API</h4>
-                  <p className="text-xs text-slate-400">Deterministic high-frequency live feed</p>
-                </div>
-              </li>
-            </ul>
-          </section>
+        {/* Visual Flowchart Section */}
+        <section className="mb-16">
+          <h3 className="text-xl font-bold text-slate-800 mb-8 uppercase tracking-widest flex items-center gap-3">
+            <ActivitySquare className="text-blue-500" /> Pipeline Flow Diagram
+          </h3>
+          
+          <div className="bg-white rounded-3xl p-10 border border-slate-200 shadow-sm relative">
+            {/* Connection Lines (Background) */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+              {/* Vertical line from NWP to Preprocessing */}
+              <div className="absolute top-[80px] left-1/2 w-0.5 h-12 bg-slate-300 -translate-x-1/2"></div>
+              {/* Split line below Preprocessing */}
+              <div className="absolute top-[210px] left-1/4 right-1/4 h-0.5 bg-slate-300"></div>
+              <div className="absolute top-[210px] left-1/4 w-0.5 h-12 bg-slate-300"></div>
+              <div className="absolute top-[210px] left-[75%] w-0.5 h-12 bg-slate-300 -translate-x-full"></div>
+              {/* Vertical from Climatology to Anomaly */}
+              <div className="absolute top-[340px] left-[75%] w-0.5 h-12 bg-slate-300 -translate-x-full"></div>
+              {/* Merge line above Extreme Events */}
+              <div className="absolute top-[480px] left-1/4 right-1/4 h-0.5 bg-slate-300"></div>
+              <div className="absolute top-[480px] left-1/4 w-0.5 h-[68px] bg-slate-300"></div>
+              <div className="absolute top-[480px] left-[75%] w-0.5 h-12 bg-slate-300 -translate-x-full"></div>
+              <div className="absolute top-[480px] left-1/2 w-0.5 h-12 bg-slate-300 -translate-x-1/2"></div>
+            </div>
 
-          {/* Section 2: AI Models */}
-          <section className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-[32px] p-8 hover:border-slate-700 transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-bl-full -z-10 group-hover:bg-indigo-500/20 transition-colors"></div>
-            <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
-              <div className="bg-indigo-500/20 text-indigo-400 p-2.5 rounded-xl"><Cpu size={22} /></div>
-              AI Core Models
-            </h3>
-            <div className="grid grid-cols-1 gap-3">
-              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">STEA-Net</h4>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Spatio-Temporal Attention</p>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Activity size={14}/></div>
+            {/* Nodes (Foreground) */}
+            <div className="relative z-10 flex flex-col items-center">
+              
+              {/* Node 1 */}
+              <div className="bg-slate-800 text-white w-64 p-4 rounded-2xl text-center shadow-lg mb-12">
+                <CloudLightning className="w-6 h-6 mx-auto mb-2 text-cyan-400" />
+                <h4 className="font-bold text-sm uppercase tracking-wider">NWP Forecast Input</h4>
+                <p className="text-xs text-slate-300 mt-1">Live Ensemble Distribution (NEPS-G)</p>
               </div>
-              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">Spherical GNN</h4>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Icosahedral Global Grid</p>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><MapIcon size={14}/></div>
+
+              {/* Node 2 */}
+              <div className="bg-blue-600 text-white w-64 p-4 rounded-2xl text-center shadow-lg mb-12">
+                <Database className="w-6 h-6 mx-auto mb-2 text-blue-200" />
+                <h4 className="font-bold text-sm uppercase tracking-wider">Preprocessing Module</h4>
+                <p className="text-xs text-blue-200 mt-1">Format standardization & scaling</p>
               </div>
-              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">Conditional Diffusion</h4>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">28km → 11km Downscaling</p>
+
+              {/* Split Row */}
+              <div className="flex justify-between w-full max-w-2xl mb-12">
+                {/* Node 3A */}
+                <div className="bg-indigo-600 text-white w-64 p-4 rounded-2xl text-center shadow-lg">
+                  <Cpu className="w-6 h-6 mx-auto mb-2 text-indigo-200" />
+                  <h4 className="font-bold text-sm uppercase tracking-wider">STEA-Net Baseline</h4>
+                  <p className="text-xs text-indigo-200 mt-1">Spatio-Temporal Event Attention Network using 2016-2020 ERA5 normalization</p>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Wind size={14}/></div>
+                
+                <div className="flex flex-col items-center gap-12">
+                  {/* Node 3B */}
+                  <div className="bg-teal-600 text-white w-64 p-4 rounded-2xl text-center shadow-lg">
+                    <Database className="w-6 h-6 mx-auto mb-2 text-teal-200" />
+                    <h4 className="font-bold text-sm uppercase tracking-wider">30-Year Climatology</h4>
+                    <p className="text-xs text-teal-200 mt-1">Historical baseline (ERA5/IMDAA) to compute true distributions</p>
+                  </div>
+                  {/* Node 3C */}
+                  <div className="bg-rose-500 text-white w-64 p-4 rounded-2xl text-center shadow-lg">
+                    <Activity className="w-6 h-6 mx-auto mb-2 text-rose-200" />
+                    <h4 className="font-bold text-sm uppercase tracking-wider">Anomaly / EFI Engine</h4>
+                    <p className="text-xs text-rose-200 mt-1">Calculates Extreme Forecast Index using threshold probabilities</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                <div>
-                  <h4 className="text-white font-bold text-sm mb-1">Multi-Object Tracker</h4>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Event Spatial Tracking</p>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Crosshair size={14}/></div>
+
+              {/* Final Node */}
+              <div className="bg-slate-900 text-white w-80 p-5 rounded-3xl text-center shadow-xl border-4 border-slate-100 mt-10">
+                <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-amber-400" />
+                <h4 className="font-black text-lg uppercase tracking-wider">Extreme-Event Information</h4>
+                <p className="text-sm text-slate-300 mt-2">Final downstream predictions dispatched to Risk Dashboard</p>
               </div>
             </div>
-          </section>
-        </div>
-
-        {/* Live Module Status Table */}
-        <section className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-[32px] p-8 mb-8 shadow-2xl">
-          <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
-            <div className="bg-emerald-500/20 text-emerald-400 p-2.5 rounded-xl"><ActivitySquare size={22} /></div>
-            Live Module Telemetry
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {[
-              { name: 'STEA-Net', status: aiHealth?.modules?.stea_net || aiHealth?.status || 'ok' },
-              { name: 'Spherical GNN', status: aiHealth?.modules?.spherical_gnn || 'ok' },
-              { name: 'Event Tracker', status: aiHealth?.modules?.event_tracker || 'ok' },
-              { name: 'Downscaling', status: aiHealth?.modules?.diffusion_downscaling || 'ok' },
-              { name: 'Impact Engine', status: aiHealth?.modules?.impact_intelligence || 'ok' },
-            ].map(mod => (
-              <div key={mod.name} className="flex flex-col justify-between bg-slate-950 border border-slate-800 p-5 rounded-2xl shadow-inner relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">{mod.name}</span>
-                <span className={mod.status === 'ok' || mod.status === 'operational' ? 'text-emerald-400 font-mono font-black text-sm drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]' : 'text-red-500 font-mono font-black text-sm drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]'}>
-                  {(mod.status === 'ok' || mod.status === 'operational') ? '● OPERATIONAL' : '● ' + mod.status.toUpperCase()}
-                </span>
-              </div>
-            ))}
           </div>
         </section>
 
-        {/* Validation and Metrics */}
-        <section className="flex flex-col md:flex-row gap-8">
-          <div className="flex-1 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-[32px] p-8">
-            <h3 className="text-sm text-slate-400 font-bold uppercase tracking-widest mb-6">Validation Constraints</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-4">
-                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
-                <p className="text-slate-300 font-medium text-sm">Extreme Anomaly Detection (Standardized Z-Score)</p>
+        {/* Detailed Technical Explanations */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+            <h3 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">
+              Current Prototype Implementation
+            </h3>
+            <ul className="space-y-6">
+              <li>
+                <h4 className="font-bold text-slate-700 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div> Baseline Normalization</h4>
+                <p className="text-sm text-slate-500 mt-2 ml-4 leading-relaxed">
+                  The prototype currently utilizes 2016–2020 ERA5 statistics specifically for the STEA-Net reproduction. This ensures the attention networks are calibrated against a stable recent epoch.
+                </p>
               </li>
-              <li className="flex items-start gap-4">
-                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
-                <p className="text-slate-300 font-medium text-sm">Extreme Forecast Index (EFI) & Threshold Probability</p>
+              <li>
+                <h4 className="font-bold text-slate-700 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div> Forecast Input</h4>
+                <p className="text-sm text-slate-500 mt-2 ml-4 leading-relaxed">
+                  Currently operating on a deterministic feed, mocking ensemble distributions where strictly necessary to validate the pipeline execution flow.
+                </p>
               </li>
-              <li className="flex items-start gap-4">
-                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
-                <p className="text-slate-300 font-medium text-sm">Physics Constraints (Mass conservation, non-negative precipitation)</p>
+              <li>
+                <h4 className="font-bold text-slate-700 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div> EFI (Extreme Forecast Index)</h4>
+                <p className="text-sm text-slate-500 mt-2 ml-4 leading-relaxed">
+                  Utilizing an <code>EFI_PROXY</code> algorithm based on threshold exceedance probabilities, rather than a full cumulative distribution function integration.
+                </p>
               </li>
             </ul>
           </div>
-          <div className="w-full md:w-1/3 bg-slate-900 border border-slate-800 rounded-[32px] p-8 flex flex-col justify-center text-center">
-            <Database className="w-12 h-12 text-blue-500 mx-auto mb-4 opacity-50" />
-            <h4 className="text-3xl font-black text-white mb-2">{aiEvents.length}</h4>
-            <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-6">Events Loaded</p>
-            
-            <h4 className="text-3xl font-black text-white mb-2">{impactsData.length}</h4>
-            <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Impact Zones Identified</p>
+
+          <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-lg text-slate-300">
+            <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-widest border-b border-slate-700 pb-4">
+              Required for Final Problem Statement (PS)
+            </h3>
+            <ul className="space-y-6">
+              <li>
+                <h4 className="font-bold text-emerald-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> 30-Year Climatology</h4>
+                <p className="text-sm text-slate-400 mt-2 ml-4 leading-relaxed">
+                  We are migrating to a full ~30-year historical baseline (using ERA5 and IMDAA datasets) to compute true, statistically rigorous distributions for all global grids.
+                </p>
+              </li>
+              <li>
+                <h4 className="font-bold text-emerald-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> Ensemble Forecast Input</h4>
+                <p className="text-sm text-slate-400 mt-2 ml-4 leading-relaxed">
+                  The pipeline must ingest live NEPS-G / EPS ensemble distributions rather than deterministic point data to properly calculate uncertainty margins.
+                </p>
+              </li>
+              <li>
+                <h4 className="font-bold text-emerald-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> True EFI Calculation</h4>
+                <p className="text-sm text-slate-400 mt-2 ml-4 leading-relaxed font-mono bg-slate-950 p-3 rounded-xl border border-slate-800 my-2 text-xs overflow-x-auto">
+                  (2/π) * ∫(0→1) [F_f(p) - p] / √(p * (1-p)) dp
+                </p>
+                <p className="text-sm text-slate-400 mt-2 ml-4 leading-relaxed">
+                  The full integral calculation is currently implemented as a "fail-loud" stub, awaiting the final production ensemble data feeds.
+                </p>
+              </li>
+            </ul>
           </div>
-        </section>
+          
+        </div>
       </div>
     </div>
   );
