@@ -671,74 +671,132 @@ export default function App() {
           <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
             <AlertOctagon className="w-5 h-5 mr-3 text-red-500" /> Regional Safety Advisories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {highRisk.slice(0, 4).map((alert, idx) => (
-              <div key={idx} className="bg-red-50/50 border border-red-100 rounded-2xl p-5 flex items-start gap-4 hover:bg-red-50 transition-colors">
-                <div className="bg-red-100 text-red-600 p-3 rounded-xl mt-1">
-                  <AlertTriangle size={24} />
-                </div>
-                <div>
-                  <h4 className="text-sm font-black text-red-900 mb-1">Warning for {alert.location}</h4>
-                  <p className="text-xs text-red-800/70 font-medium leading-relaxed mb-3">
-                    Severe {alert.hazard.toLowerCase()} expected shortly. Please stay indoors, keep emergency kits ready, and follow local news broadcasts. Over {alert.affectedAssets?.population?.toLocaleString()} people in your region are affected.
-                  </p>
-                  <div className="flex gap-2">
-                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition-colors">Read Full Advisory</button>
-                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-white text-red-600 border border-red-200 rounded-lg shadow-sm hover:bg-red-50 transition-colors">Share with Family</button>
+              <div key={idx} className="relative overflow-hidden bg-white border border-red-100 rounded-[24px] shadow-sm hover:shadow-lg transition-all duration-300 group">
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-red-500 to-rose-600"></div>
+                <div className="p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
+                  <div className="flex-shrink-0 bg-red-50 text-red-500 p-4 rounded-2xl ring-4 ring-red-50/50 group-hover:scale-110 transition-transform">
+                    <AlertTriangle size={28} strokeWidth={2.5} />
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="text-base font-black text-slate-800 tracking-tight">Warning for {alert.location}</h4>
+                      <span className="text-[10px] font-bold bg-red-100 text-red-700 px-2.5 py-1 rounded-full uppercase tracking-wider">High Alert</span>
+                    </div>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                      Severe <strong className="text-red-500">{alert.hazard.toLowerCase()}</strong> expected shortly. Please stay indoors, keep emergency kits ready, and follow local news broadcasts. Over {(alert.affectedAssets?.population||0).toLocaleString()} people are in the affected zone.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <button className="text-xs font-bold px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30 hover:-translate-y-0.5 transition-all">Read Full Advisory</button>
+                      <button className="text-xs font-bold px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300 transition-all">Share with Family</button>
+                    </div>
                   </div>
                 </div>
+                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-red-100 to-rose-50 rounded-full blur-3xl opacity-50 z-0"></div>
               </div>
             ))}
             {highRisk.length === 0 && (
-              <div className="col-span-2 text-center py-10 text-slate-400 font-medium">
-                No active safety warnings in your monitored areas.
+              <div className="col-span-2 text-center py-12 bg-slate-50 rounded-[24px] border border-dashed border-slate-200">
+                <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
+                <p className="text-slate-500 font-bold text-lg">No active safety warnings.</p>
+                <p className="text-slate-400 text-sm mt-1">Your monitored regions are currently safe.</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Personal Preparedness Guide */}
-        <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
+        <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50 -z-10"></div>
+          <h2 className="text-lg font-bold text-slate-800 mb-8 uppercase tracking-widest flex items-center">
             <CheckCircle2 className="w-5 h-5 mr-3 text-emerald-500" /> Personal Preparedness Guide
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4 gap-3">
-                <div className="bg-orange-100 text-orange-500 p-2 rounded-lg"><Thermometer size={20} /></div>
-                <h3 className="font-bold text-slate-700">Heatwave Safety</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Heatwave Card */}
+            <div className="group bg-white border border-slate-100 rounded-[24px] p-8 shadow-sm hover:shadow-[0_20px_40px_rgb(249,115,22,0.1)] transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+              <div className="flex items-center mb-6 gap-4">
+                <div className="bg-gradient-to-br from-orange-400 to-amber-500 text-white p-3.5 rounded-2xl shadow-lg shadow-orange-500/30">
+                  <Thermometer size={24} strokeWidth={2.5} />
+                </div>
+                <h3 className="text-lg font-black text-slate-800 tracking-tight">Heatwave Safety</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Stay hydrated with electrolytes</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Avoid sun exposure from 11AM - 4PM</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Keep curtains closed during the day</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Check on elderly neighbors</li>
+              <ul className="space-y-4">
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(251,146,60,0.8)]"></div> 
+                  <span>Stay hydrated with water and electrolytes</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(251,146,60,0.8)]"></div> 
+                  <span>Avoid sun exposure from 11 AM - 4 PM</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(251,146,60,0.8)]"></div> 
+                  <span>Keep curtains closed during the peak day</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(251,146,60,0.8)]"></div> 
+                  <span>Regularly check on elderly neighbors</span>
+                </li>
               </ul>
             </div>
 
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4 gap-3">
-                <div className="bg-cyan-100 text-cyan-500 p-2 rounded-lg"><Droplets size={20} /></div>
-                <h3 className="font-bold text-slate-700">Flood Preparation</h3>
+            {/* Flood Card */}
+            <div className="group bg-white border border-slate-100 rounded-[24px] p-8 shadow-sm hover:shadow-[0_20px_40px_rgb(6,182,212,0.1)] transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+              <div className="flex items-center mb-6 gap-4">
+                <div className="bg-gradient-to-br from-cyan-400 to-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-cyan-500/30">
+                  <Droplets size={24} strokeWidth={2.5} />
+                </div>
+                <h3 className="text-lg font-black text-slate-800 tracking-tight">Flood Preparation</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Move valuables to higher floors</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Prepare a 3-day emergency water supply</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Keep important documents in waterproof bags</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Do not walk or drive through flood waters</li>
+              <ul className="space-y-4">
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div> 
+                  <span>Move all valuables to higher floors</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div> 
+                  <span>Prepare a 3-day emergency water supply</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div> 
+                  <span>Store important documents in waterproof bags</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div> 
+                  <span>Never walk or drive through flooded roads</span>
+                </li>
               </ul>
             </div>
 
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4 gap-3">
-                <div className="bg-purple-100 text-purple-500 p-2 rounded-lg"><Wind size={20} /></div>
-                <h3 className="font-bold text-slate-700">Cyclone / Wind Safety</h3>
+            {/* Cyclone Card */}
+            <div className="group bg-white border border-slate-100 rounded-[24px] p-8 shadow-sm hover:shadow-[0_20px_40px_rgb(168,85,247,0.1)] transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+              <div className="flex items-center mb-6 gap-4">
+                <div className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white p-3.5 rounded-2xl shadow-lg shadow-purple-500/30">
+                  <Wind size={24} strokeWidth={2.5} />
+                </div>
+                <h3 className="text-lg font-black text-slate-800 tracking-tight">Wind Safety</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Secure loose outdoor furniture</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Tape or board up glass windows</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Charge all power banks and phones</li>
-                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Have a battery-operated flashlight ready</li>
+              <ul className="space-y-4">
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)]"></div> 
+                  <span>Secure all loose outdoor furniture</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)]"></div> 
+                  <span>Tape or tightly board up glass windows</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)]"></div> 
+                  <span>Fully charge all power banks and phones</span>
+                </li>
+                <li className="flex items-start text-sm text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 mr-3 flex-shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.8)]"></div> 
+                  <span>Have battery-operated flashlights ready</span>
+                </li>
               </ul>
             </div>
           </div>
