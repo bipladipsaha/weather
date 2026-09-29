@@ -1606,22 +1606,53 @@ export default function App() {
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-[#F4F7FE]">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-[#F4F7FE] relative">
         {/* Header */}
         <header className="px-10 py-6 flex justify-between items-center bg-transparent z-10">
-          <div className="flex-1 max-w-xl mr-8">
-             <div className="bg-white rounded-full px-6 py-3 flex items-center shadow-[0_4px_20px_rgb(0,0,0,0.03)] text-sm">
-                <input type="text" placeholder="Search Location..." className="flex-1 outline-none border-none text-slate-700 bg-transparent placeholder-slate-400" />
-                <Search size={18} className="text-slate-400" />
+          <div className="flex-1 max-w-xl mr-8 relative">
+             <div className="bg-white rounded-full px-6 py-3 flex items-center shadow-[0_4px_20px_rgb(0,0,0,0.03)] text-sm focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+                <input 
+                  type="text" 
+                  placeholder="Search Location..." 
+                  className="flex-1 outline-none border-none text-slate-700 bg-transparent placeholder-slate-400"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const val = e.target.value;
+                      if (!val) return;
+                      e.target.value = '';
+                      // Create a temporary toast
+                      const toast = document.createElement('div');
+                      toast.className = 'absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-slate-900 text-white px-6 py-3 rounded-full text-xs font-bold tracking-widest uppercase shadow-xl animate-in fade-in slide-in-from-top-2 z-50 flex items-center gap-2';
+                      toast.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> Scanning Telemetry for: <span class="text-blue-400">${val}</span>`;
+                      e.target.parentElement.parentElement.appendChild(toast);
+                      setTimeout(() => {
+                        toast.classList.add('animate-out', 'fade-out', 'slide-out-to-top-2');
+                        setTimeout(() => toast.remove(), 200);
+                      }, 2500);
+                    }
+                  }}
+                />
+                <Search size={18} className="text-slate-400 cursor-pointer hover:text-blue-500 transition-colors" onClick={(e) => {
+                  const input = e.currentTarget.previousElementSibling;
+                  input.focus();
+                }} />
              </div>
           </div>
 
           <div className="flex items-center gap-4">
-             <button className="w-12 h-12 flex items-center justify-center bg-white rounded-full text-slate-400 hover:text-orange-500 shadow-[0_4px_20px_rgb(0,0,0,0.03)]">
+             <button 
+               onClick={() => setActiveTab('OVERVIEW')}
+               className="w-12 h-12 flex items-center justify-center bg-white rounded-full text-slate-400 hover:text-blue-500 hover:bg-blue-50 transition-all shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md"
+               title="View Global Map"
+             >
                <MapIcon size={20} />
              </button>
-             <button className="w-12 h-12 flex items-center justify-center bg-white rounded-full text-slate-400 hover:text-orange-500 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative">
-               <span className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full"></span>
+             <button 
+               onClick={() => setActiveTab('RISK INTELLIGENCE')}
+               className="w-12 h-12 flex items-center justify-center bg-white rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md relative"
+               title="View Active Alerts"
+             >
+               <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
                <AlertOctagon size={20} />
              </button>
           </div>
