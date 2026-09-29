@@ -69,8 +69,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('OVERVIEW');
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedRiskFilter, setSelectedRiskFilter] = useState(null);
+  const [selectedAdvisory, setSelectedAdvisory] = useState(null);
   const [isDownscaling, setIsDownscaling] = useState(false);
-  const [downscaledEventId, setDownscaledEventId] = useState(null);
   
   const [rainfallDate, setRainfallDate] = useState('2020-01-25');
   const [rainfallLayer, setRainfallLayer] = useState('AI_DOWNSCALED');
@@ -689,7 +689,7 @@ export default function App() {
                     </p>
                     <div className="flex flex-wrap gap-3">
                       <button 
-                        onClick={() => window.alert(`ADVISORY DETAILS:\n\nLocation: ${alert.location}\nHazard: ${alert.hazard}\nSeverity: HIGH\n\nPlease remain indoors and monitor local news. Emergency response teams are on standby in ${alert.location}.`)}
+                        onClick={() => setSelectedAdvisory(alert)}
                         className="text-xs font-bold px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30 hover:-translate-y-0.5 transition-all">
                         Read Full Advisory
                       </button>
@@ -700,7 +700,7 @@ export default function App() {
                             navigator.share({ title: 'Safety Alert', text: msg }).catch(console.error);
                           } else {
                             navigator.clipboard.writeText(msg);
-                            window.alert('Warning message copied to clipboard! You can now paste it to your family via WhatsApp or SMS.');
+                            setSelectedAdvisory({ ...alert, isShareNotice: true });
                           }
                         }}
                         className="text-xs font-bold px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-800 hover:border-slate-300 transition-all">
@@ -817,6 +817,75 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Custom Advisory Modal */}
+        {selectedAdvisory && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setSelectedAdvisory(null)}></div>
+            <div className="bg-white rounded-[32px] w-full max-w-lg relative z-10 shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+              {/* Modal Header */}
+              <div className="bg-gradient-to-r from-red-500 to-rose-600 p-8 pb-12 relative text-white">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+                <button onClick={() => setSelectedAdvisory(null)} className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors">
+                  <X size={18} strokeWidth={3} />
+                </button>
+                <div className="flex items-center gap-3 mb-2">
+                  <AlertOctagon size={24} className="opacity-90" />
+                  <span className="text-xs font-black tracking-widest uppercase opacity-90">Official Bulletin</span>
+                </div>
+                <h2 className="text-3xl font-black tracking-tight leading-tight mb-2">
+                  {selectedAdvisory.isShareNotice ? 'Link Copied!' : `Alert: ${selectedAdvisory.location}`}
+                </h2>
+                {!selectedAdvisory.isShareNotice && (
+                  <span className="inline-block bg-white text-red-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm mt-2 uppercase tracking-wide">
+                    Level 10 Emergency
+                  </span>
+                )}
+              </div>
+              
+              {/* Modal Body */}
+              <div className="p-8 -mt-8 relative z-10">
+                <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 border border-slate-100">
+                  {selectedAdvisory.isShareNotice ? (
+                    <div className="text-center py-4">
+                      <div className="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle2 size={32} />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-800 mb-2">Message Copied to Clipboard</h3>
+                      <p className="text-sm text-slate-500">You can now paste this warning message directly into WhatsApp, SMS, or any other messaging app to share it with your family.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                          <AlertTriangle size={20} className="text-red-500" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Hazard Type</p>
+                          <p className="text-base font-black text-slate-800 capitalize">{selectedAdvisory.hazard}</p>
+                        </div>
+                      </div>
+                      <div className="w-full h-px bg-slate-100 my-4"></div>
+                      <div className="prose prose-sm text-slate-600">
+                        <p className="font-medium">Please remain indoors and actively monitor local news broadcasts.</p>
+                        <p className="mt-2">Extremely severe conditions are developing rapidly. Over <strong>{(selectedAdvisory.affectedAssets?.population||0).toLocaleString()} residents</strong> are currently in the affected trajectory.</p>
+                        <ul className="mt-4 space-y-2 text-sm font-medium">
+                          <li className="flex items-center text-rose-600"><div className="w-1.5 h-1.5 bg-rose-500 rounded-full mr-2"></div> Have emergency kits prepared</li>
+                          <li className="flex items-center text-rose-600"><div className="w-1.5 h-1.5 bg-rose-500 rounded-full mr-2"></div> Keep communication devices charged</li>
+                          <li className="flex items-center text-rose-600"><div className="w-1.5 h-1.5 bg-rose-500 rounded-full mr-2"></div> Await further instructions from local authorities</li>
+                        </ul>
+                      </div>
+                    </>
+                  )}
+                </div>
+                
+                <button onClick={() => setSelectedAdvisory(null)} className="w-full mt-6 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-lg shadow-slate-900/20 transition-all active:scale-95">
+                  Acknowledge & Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
