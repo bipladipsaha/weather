@@ -1410,69 +1410,166 @@ export default function App() {
   };
 
   const renderSystem = () => (
-    <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-12 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-slate-800 mb-8 border-b border-slate-100 pb-6">SYSTEM ARCHITECTURE</h2>
-      
-      <div className="space-y-10 text-slate-600">
-        <section>
-          <h3 className="text-blue-500 font-bold mb-4 uppercase tracking-widest flex items-center gap-2"><Database size={18} /> 1. Data Sources</h3>
-          <ul className="list-disc pl-6 space-y-2 font-medium">
-            <li>ERA5 & ERA5-Land (ECMWF Reanalysis v5)</li>
-            <li>NWP / Ensemble Forecasts (Simulated/Demo via NEPS-G proxy)</li>
-            <li>Open-Meteo Deterministic Live Feed</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 className="text-blue-500 font-bold mb-4 uppercase tracking-widest flex items-center gap-2"><Cpu size={18} /> 2. AI Models</h3>
-          <ul className="list-disc pl-6 space-y-2 font-medium">
-            <li><strong>STEA-Net:</strong> Spatio-Temporal Event Attention Network</li>
-            <li><strong>Spherical GNN:</strong> Icosahedral grid architecture for global representation</li>
-            <li><strong>Conditional Residual Diffusion:</strong> 28km → 11km high-res prototyping</li>
-            <li><strong>Event Tracker:</strong> Multi-object spatial tracking algorithm</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 className="text-cyan-400 font-mono mb-3 uppercase">3. Validation & Constraints</h3>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Extreme Anomaly Detection (Standardized Z-Score)</li>
-            <li>EFI (Extreme Forecast Index) & Threshold Probability</li>
-            <li>Physics Constraints (Mass conservation, non-negative precipitation)</li>
-          </ul>
-        </section>
+    <div className="bg-slate-950 rounded-[40px] shadow-[0_20px_60px_rgb(0,0,0,0.4)] p-12 w-full h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden relative text-slate-300 border border-slate-800">
+      {/* Background glowing effects */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10 rounded-[40px]">
+        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-[40%] left-[30%] w-[20%] h-[20%] bg-cyan-500/10 rounded-full blur-[80px]"></div>
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0ibm9uZSIvPgo8cGF0aCBkPSJNMCA0MEwwIDAgNDAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-50"></div>
       </div>
 
-      {/* Live Module Status */}
-      <div className="mt-12 space-y-3">
-        <h3 className="text-blue-500 font-bold mb-4 uppercase tracking-widest flex items-center gap-2"><ActivitySquare size={18} /> 4. Module Status</h3>
-        {[
-          { name: 'STEA-Net', status: aiHealth?.modules?.stea_net || aiHealth?.status || 'ok' },
-          { name: 'Spherical GNN', status: aiHealth?.modules?.spherical_gnn || 'ok' },
-          { name: 'Event Tracker', status: aiHealth?.modules?.event_tracker || 'ok' },
-          { name: 'Diffusion Downscaling', status: aiHealth?.modules?.diffusion_downscaling || 'ok' },
-          { name: 'Impact Intelligence', status: aiHealth?.modules?.impact_intelligence || 'ok' },
-        ].map(mod => (
-          <div key={mod.name} className="flex justify-between items-center bg-slate-50 border border-slate-100 p-4 rounded-2xl font-mono text-sm shadow-sm transition-transform hover:-translate-y-0.5">
-            <span className="text-slate-600 font-bold">{mod.name}</span>
-            <span className={mod.status === 'ok' || mod.status === 'operational' ? 'text-green-500 font-bold' : 'text-red-500 font-bold'}>
-              {(mod.status === 'ok' || mod.status === 'operational') ? '● OPERATIONAL' : '● ' + mod.status.toUpperCase()}
-            </span>
+      <div className="max-w-5xl mx-auto relative z-10">
+        <header className="mb-12 flex items-center justify-between border-b border-slate-800 pb-8">
+          <div>
+            <h2 className="text-4xl font-black text-white tracking-tight flex items-center gap-4">
+              <Server className="w-10 h-10 text-blue-500" /> SYSTEM ARCHITECTURE
+            </h2>
+            <p className="text-slate-400 mt-2 font-medium tracking-wide">Live Meteorological AI Processing Pipeline</p>
           </div>
-        ))}
-      </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-6 shadow-xl">
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">System Mode</span>
+              <span className="text-emerald-400 font-mono font-bold flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgb(16,185,129)]"></div>
+                {systemStatus?.system_mode || 'OPERATIONAL'}
+              </span>
+            </div>
+            <div className="w-px h-8 bg-slate-800"></div>
+            <div className="flex flex-col">
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">API Health</span>
+              <span className="text-white font-mono font-bold">100% NOMINAL</span>
+            </div>
+          </div>
+        </header>
 
-      <div className="mt-8 p-6 bg-green-50 border border-green-100 rounded-3xl flex items-start shadow-sm">
-        <Server className="text-green-500 mr-4 mt-1 w-6 h-6 flex-shrink-0" />
-        <div>
-          <h4 className="text-green-600 font-bold uppercase text-sm mb-2 tracking-wider">API Health Status: Operational</h4>
-          <p className="text-sm font-medium text-slate-600 leading-relaxed">
-            System Mode: <span className="font-bold text-slate-800">{systemStatus?.system_mode || 'OPERATIONAL'}</span> | 
-            Events Loaded: <span className="font-bold text-slate-800">{aiEvents.length}</span> | 
-            Impact Zones: <span className="font-bold text-slate-800">{impactsData.length}</span><br/>
-            All core meteorological models and downstream impact processors are functioning nominally.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Section 1: Data Sources */}
+          <section className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-[32px] p-8 hover:border-slate-700 transition-colors group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full -z-10 group-hover:bg-blue-500/20 transition-colors"></div>
+            <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
+              <div className="bg-blue-500/20 text-blue-400 p-2.5 rounded-xl"><Database size={22} /></div>
+              Data Sources
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
+                <div className="text-blue-400 font-black text-xl font-mono">01</div>
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">ERA5 & ERA5-Land</h4>
+                  <p className="text-xs text-slate-400">ECMWF Reanalysis v5 Global Climate Data</p>
+                </div>
+              </li>
+              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
+                <div className="text-blue-400 font-black text-xl font-mono">02</div>
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">NWP / Ensemble Forecasts</h4>
+                  <p className="text-xs text-slate-400">Simulated/Demo via NEPS-G proxy streams</p>
+                </div>
+              </li>
+              <li className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
+                <div className="text-blue-400 font-black text-xl font-mono">03</div>
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">Open-Meteo API</h4>
+                  <p className="text-xs text-slate-400">Deterministic high-frequency live feed</p>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          {/* Section 2: AI Models */}
+          <section className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-[32px] p-8 hover:border-slate-700 transition-colors group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-bl-full -z-10 group-hover:bg-indigo-500/20 transition-colors"></div>
+            <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
+              <div className="bg-indigo-500/20 text-indigo-400 p-2.5 rounded-xl"><Cpu size={22} /></div>
+              AI Core Models
+            </h3>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">STEA-Net</h4>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Spatio-Temporal Attention</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Activity size={14}/></div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">Spherical GNN</h4>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Icosahedral Global Grid</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><MapIcon size={14}/></div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">Conditional Diffusion</h4>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">28km → 11km Downscaling</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Wind size={14}/></div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">Multi-Object Tracker</h4>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Event Spatial Tracking</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center text-indigo-400"><Crosshair size={14}/></div>
+              </div>
+            </div>
+          </section>
         </div>
+
+        {/* Live Module Status Table */}
+        <section className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-[32px] p-8 mb-8 shadow-2xl">
+          <h3 className="text-xl text-white font-bold mb-6 flex items-center gap-3">
+            <div className="bg-emerald-500/20 text-emerald-400 p-2.5 rounded-xl"><ActivitySquare size={22} /></div>
+            Live Module Telemetry
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { name: 'STEA-Net', status: aiHealth?.modules?.stea_net || aiHealth?.status || 'ok' },
+              { name: 'Spherical GNN', status: aiHealth?.modules?.spherical_gnn || 'ok' },
+              { name: 'Event Tracker', status: aiHealth?.modules?.event_tracker || 'ok' },
+              { name: 'Downscaling', status: aiHealth?.modules?.diffusion_downscaling || 'ok' },
+              { name: 'Impact Engine', status: aiHealth?.modules?.impact_intelligence || 'ok' },
+            ].map(mod => (
+              <div key={mod.name} className="flex flex-col justify-between bg-slate-950 border border-slate-800 p-5 rounded-2xl shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">{mod.name}</span>
+                <span className={mod.status === 'ok' || mod.status === 'operational' ? 'text-emerald-400 font-mono font-black text-sm drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]' : 'text-red-500 font-mono font-black text-sm drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]'}>
+                  {(mod.status === 'ok' || mod.status === 'operational') ? '● OPERATIONAL' : '● ' + mod.status.toUpperCase()}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Validation and Metrics */}
+        <section className="flex flex-col md:flex-row gap-8">
+          <div className="flex-1 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-[32px] p-8">
+            <h3 className="text-sm text-slate-400 font-bold uppercase tracking-widest mb-6">Validation Constraints</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4">
+                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
+                <p className="text-slate-300 font-medium text-sm">Extreme Anomaly Detection (Standardized Z-Score)</p>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
+                <p className="text-slate-300 font-medium text-sm">Extreme Forecast Index (EFI) & Threshold Probability</p>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="mt-1 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgb(6,182,212)]"></div>
+                <p className="text-slate-300 font-medium text-sm">Physics Constraints (Mass conservation, non-negative precipitation)</p>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full md:w-1/3 bg-slate-900 border border-slate-800 rounded-[32px] p-8 flex flex-col justify-center text-center">
+            <Database className="w-12 h-12 text-blue-500 mx-auto mb-4 opacity-50" />
+            <h4 className="text-3xl font-black text-white mb-2">{aiEvents.length}</h4>
+            <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-6">Events Loaded</p>
+            
+            <h4 className="text-3xl font-black text-white mb-2">{impactsData.length}</h4>
+            <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Impact Zones Identified</p>
+          </div>
+        </section>
       </div>
     </div>
   );
