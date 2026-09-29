@@ -638,38 +638,38 @@ export default function App() {
     return (
       <div className="space-y-8">
         <style>{customStyles}</style>
-        {/* Risk Summary Cards */}
+        {/* Safety Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-[2000px]">
           <div onClick={() => setSelectedRiskFilter(selectedRiskFilter === 'HIGH' ? null : 'HIGH')} className={`card-3d cursor-pointer rounded-[30px] shadow-[0_15px_40px_rgb(239,68,68,0.25)] p-8 bg-gradient-to-br from-red-500 to-rose-700 text-white relative overflow-hidden border border-red-400/50 ${selectedRiskFilter === 'HIGH' ? 'ring-4 ring-red-300 ring-offset-4 ring-offset-[#F4F7FE]' : ''}`}>
             <div className="card-3d-content relative z-10">
-              <span className="text-[10px] font-bold text-red-100 uppercase tracking-widest block mb-4 border-b border-red-400/30 pb-2">High Risk Zones</span>
+              <span className="text-[10px] font-bold text-red-100 uppercase tracking-widest block mb-4 border-b border-red-400/30 pb-2">High Danger Zones</span>
               <span className="text-6xl font-extrabold tracking-tight drop-shadow-md">{highRisk.length}</span>
-              <p className="text-[11px] font-bold text-red-200 mt-4 uppercase tracking-widest bg-red-900/30 py-1.5 px-3 rounded-full inline-block">Immediate action</p>
+              <p className="text-[11px] font-bold text-red-200 mt-4 uppercase tracking-widest bg-red-900/30 py-1.5 px-3 rounded-full inline-block">Avoid Travel</p>
             </div>
             <AlertOctagon className="absolute -bottom-4 -right-4 w-40 h-40 text-white opacity-[0.07] transform -rotate-12" />
           </div>
           <div onClick={() => setSelectedRiskFilter(selectedRiskFilter === 'MEDIUM' ? null : 'MEDIUM')} className={`card-3d cursor-pointer rounded-[30px] shadow-[0_15px_40px_rgb(249,115,22,0.25)] p-8 bg-gradient-to-br from-orange-400 to-amber-600 text-white relative overflow-hidden border border-orange-300/50 ${selectedRiskFilter === 'MEDIUM' ? 'ring-4 ring-orange-300 ring-offset-4 ring-offset-[#F4F7FE]' : ''}`}>
             <div className="card-3d-content relative z-10">
-              <span className="text-[10px] font-bold text-orange-100 uppercase tracking-widest block mb-4 border-b border-orange-300/30 pb-2">Medium Risk Zones</span>
+              <span className="text-[10px] font-bold text-orange-100 uppercase tracking-widest block mb-4 border-b border-orange-300/30 pb-2">Caution Zones</span>
               <span className="text-6xl font-extrabold tracking-tight drop-shadow-md">{medRisk.length}</span>
-              <p className="text-[11px] font-bold text-orange-100 mt-4 uppercase tracking-widest bg-orange-900/20 py-1.5 px-3 rounded-full inline-block">Monitor status</p>
+              <p className="text-[11px] font-bold text-orange-100 mt-4 uppercase tracking-widest bg-orange-900/20 py-1.5 px-3 rounded-full inline-block">Stay Alert</p>
             </div>
             <AlertTriangle className="absolute -bottom-4 -right-4 w-40 h-40 text-white opacity-[0.07] transform -rotate-12" />
           </div>
           <div onClick={() => setSelectedRiskFilter(selectedRiskFilter === 'LOW' ? null : 'LOW')} className={`card-3d cursor-pointer rounded-[30px] shadow-[0_15px_40px_rgb(34,197,94,0.25)] p-8 bg-gradient-to-br from-emerald-400 to-teal-600 text-white relative overflow-hidden border border-emerald-300/50 ${selectedRiskFilter === 'LOW' ? 'ring-4 ring-emerald-300 ring-offset-4 ring-offset-[#F4F7FE]' : ''}`}>
             <div className="card-3d-content relative z-10">
-              <span className="text-[10px] font-bold text-emerald-100 uppercase tracking-widest block mb-4 border-b border-emerald-300/30 pb-2">Low Risk Zones</span>
+              <span className="text-[10px] font-bold text-emerald-100 uppercase tracking-widest block mb-4 border-b border-emerald-300/30 pb-2">Safe Zones</span>
               <span className="text-6xl font-extrabold tracking-tight drop-shadow-md">{lowRisk.length}</span>
-              <p className="text-[11px] font-bold text-emerald-100 mt-4 uppercase tracking-widest bg-emerald-900/20 py-1.5 px-3 rounded-full inline-block">Advisory Level</p>
+              <p className="text-[11px] font-bold text-emerald-100 mt-4 uppercase tracking-widest bg-emerald-900/20 py-1.5 px-3 rounded-full inline-block">Normal Conditions</p>
             </div>
-            <ActivitySquare className="absolute -bottom-4 -right-4 w-40 h-40 text-white opacity-[0.07] transform -rotate-12" />
+            <CheckCircle2 className="absolute -bottom-4 -right-4 w-40 h-40 text-white opacity-[0.07] transform -rotate-12" />
           </div>
         </div>
 
-        {/* Actionable Emergency Alerts */}
+        {/* Citizen Safety Advisories */}
         <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
           <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
-            <AlertOctagon className="w-5 h-5 mr-3 text-red-500" /> Actionable Emergency Alerts
+            <AlertOctagon className="w-5 h-5 mr-3 text-red-500" /> Regional Safety Advisories
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {highRisk.slice(0, 4).map((alert, idx) => (
@@ -678,77 +678,68 @@ export default function App() {
                   <AlertTriangle size={24} />
                 </div>
                 <div>
-                  <h4 className="text-sm font-black text-red-900 mb-1">Evacuate {alert.location}</h4>
+                  <h4 className="text-sm font-black text-red-900 mb-1">Warning for {alert.location}</h4>
                   <p className="text-xs text-red-800/70 font-medium leading-relaxed mb-3">
-                    Extreme {alert.hazard} conditions detected. Over {alert.affectedAssets?.population?.toLocaleString()} people are at immediate risk. Deploy emergency response teams.
+                    Severe {alert.hazard.toLowerCase()} expected shortly. Please stay indoors, keep emergency kits ready, and follow local news broadcasts. Over {alert.affectedAssets?.population?.toLocaleString()} people in your region are affected.
                   </p>
                   <div className="flex gap-2">
-                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition-colors">Broadcast Alert</button>
-                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-white text-red-600 border border-red-200 rounded-lg shadow-sm hover:bg-red-50 transition-colors">View Map</button>
+                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition-colors">Read Full Advisory</button>
+                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-white text-red-600 border border-red-200 rounded-lg shadow-sm hover:bg-red-50 transition-colors">Share with Family</button>
                   </div>
                 </div>
               </div>
             ))}
             {highRisk.length === 0 && (
               <div className="col-span-2 text-center py-10 text-slate-400 font-medium">
-                No high risk alerts active at this time.
+                No active safety warnings in your monitored areas.
               </div>
             )}
           </div>
         </div>
 
-        {/* Resource Deployment Optimizer */}
+        {/* Personal Preparedness Guide */}
         <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
           <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
-            <Search className="w-5 h-5 mr-3 text-blue-500" /> Resource Deployment Optimizer
+            <CheckCircle2 className="w-5 h-5 mr-3 text-emerald-500" /> Personal Preparedness Guide
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-slate-700">Medical Units</h3>
-                <span className="text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">PRIORITY</span>
+              <div className="flex items-center mb-4 gap-3">
+                <div className="bg-orange-100 text-orange-500 p-2 rounded-lg"><Thermometer size={20} /></div>
+                <h3 className="font-bold text-slate-700">Heatwave Safety</h3>
               </div>
               <ul className="space-y-3">
-                {highRisk.slice(0, 3).map((item, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
-                    <span className="font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 10000)} Units</span>
-                  </li>
-                ))}
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Stay hydrated with electrolytes</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Avoid sun exposure from 11AM - 4PM</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Keep curtains closed during the day</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-orange-400 mr-2"></div> Check on elderly neighbors</li>
               </ul>
-              <button className="w-full mt-5 text-xs font-bold text-white bg-blue-500 hover:bg-blue-600 py-2.5 rounded-xl transition-colors shadow-sm">Dispatch Medical</button>
             </div>
 
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-slate-700">Relief Supplies</h3>
-                <span className="text-[10px] font-bold bg-amber-100 text-amber-600 px-2 py-1 rounded">STANDBY</span>
+              <div className="flex items-center mb-4 gap-3">
+                <div className="bg-cyan-100 text-cyan-500 p-2 rounded-lg"><Droplets size={20} /></div>
+                <h3 className="font-bold text-slate-700">Flood Preparation</h3>
               </div>
               <ul className="space-y-3">
-                {medRisk.slice(0, 3).map((item, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
-                    <span className="font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 5000)} Tons</span>
-                  </li>
-                ))}
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Move valuables to higher floors</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Prepare a 3-day emergency water supply</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Keep important documents in waterproof bags</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></div> Do not walk or drive through flood waters</li>
               </ul>
-              <button className="w-full mt-5 text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 py-2.5 rounded-xl transition-colors shadow-sm">Prepare Logistics</button>
             </div>
 
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-slate-700">Evacuation Transport</h3>
-                <span className="text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded">CRITICAL</span>
+              <div className="flex items-center mb-4 gap-3">
+                <div className="bg-purple-100 text-purple-500 p-2 rounded-lg"><Wind size={20} /></div>
+                <h3 className="font-bold text-slate-700">Cyclone / Wind Safety</h3>
               </div>
               <ul className="space-y-3">
-                {sortedImpacts.slice(0, 3).map((item, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
-                    <span className="font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 50000)} Buses</span>
-                  </li>
-                ))}
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Secure loose outdoor furniture</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Tape or board up glass windows</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Charge all power banks and phones</li>
+                <li className="flex items-center text-xs text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"></div> Have a battery-operated flashlight ready</li>
               </ul>
-              <button className="w-full mt-5 text-xs font-bold text-white bg-purple-500 hover:bg-purple-600 py-2.5 rounded-xl transition-colors shadow-sm">Coordinate Transport</button>
             </div>
           </div>
         </div>
