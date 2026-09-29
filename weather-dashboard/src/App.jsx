@@ -474,9 +474,14 @@ export default function App() {
     return (
       <div className="space-y-8">
         <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-8 uppercase tracking-widest flex items-center">
-            <CloudLightning className="w-5 h-5 mr-3 text-sky-500" /> 7-Day Risk Forecast
-          </h2>
+          <div className="mb-8">
+            <h2 className="text-lg font-bold text-slate-800 uppercase tracking-widest flex items-center">
+              <CloudLightning className="w-5 h-5 mr-3 text-sky-500" /> 7-Day Risk Forecast
+            </h2>
+            <p className="text-xs text-slate-400 font-semibold mt-1 ml-8 tracking-wide">
+              OVERALL REGIONAL AVERAGE
+            </p>
+          </div>
           <div className="flex justify-between items-center mb-4 px-4 relative mt-6">
             <div className="absolute top-[40%] left-4 right-4 h-1 bg-slate-100 rounded-full -z-10"></div>
             {timesteps.map((ts, i) => {
