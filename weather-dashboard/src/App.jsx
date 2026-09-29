@@ -666,94 +666,90 @@ export default function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Risk Distribution Pie Chart */}
-          <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Risk Distribution</h3>
-            <div className="h-[220px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart style={{ filter: 'drop-shadow(0px 15px 15px rgba(0,0,0,0.08))' }}>
-                  <Pie data={riskPieData} cx="50%" cy="50%" innerRadius={65} outerRadius={90} paddingAngle={8} dataKey="value" stroke="none" cursor="pointer" onClick={(data) => setSelectedRiskFilter(selectedRiskFilter === data.name ? null : data.name)}>
-                    {riskPieData.map((entry, idx) => (
-                      <Cell key={idx} fill={entry.fill} opacity={selectedRiskFilter && selectedRiskFilter !== entry.name ? 0.2 : 1} style={{ transition: 'opacity 0.3s ease' }} />
-                    ))}
-                  </Pie>
-                  <Tooltip contentStyle={{backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#1e293b', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)'}} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          
-          {/* Vulnerability Metrics */}
-          <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">Vulnerability Metrics (Global)</h3>
-            <div className="space-y-8">
-              <div>
-                <div className="flex justify-between text-sm mb-2"><span className="font-bold text-slate-500">Population at Risk</span><span className="text-slate-800 font-bold">{sortedImpacts.reduce((s,i)=>s+(i.affectedAssets?.population||0),0).toLocaleString()}</span></div>
-                <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden"><div className="animate-bar h-full bg-blue-500 w-[75%] rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div></div>
+        {/* Actionable Emergency Alerts */}
+        <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
+          <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
+            <AlertOctagon className="w-5 h-5 mr-3 text-red-500" /> Actionable Emergency Alerts
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {highRisk.slice(0, 4).map((alert, idx) => (
+              <div key={idx} className="bg-red-50/50 border border-red-100 rounded-2xl p-5 flex items-start gap-4 hover:bg-red-50 transition-colors">
+                <div className="bg-red-100 text-red-600 p-3 rounded-xl mt-1">
+                  <AlertTriangle size={24} />
+                </div>
+                <div>
+                  <h4 className="text-sm font-black text-red-900 mb-1">Evacuate {alert.location}</h4>
+                  <p className="text-xs text-red-800/70 font-medium leading-relaxed mb-3">
+                    Extreme {alert.hazard} conditions detected. Over {alert.affectedAssets?.population?.toLocaleString()} people are at immediate risk. Deploy emergency response teams.
+                  </p>
+                  <div className="flex gap-2">
+                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition-colors">Broadcast Alert</button>
+                    <button className="text-[10px] uppercase font-bold px-3 py-1.5 bg-white text-red-600 border border-red-200 rounded-lg shadow-sm hover:bg-red-50 transition-colors">View Map</button>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="flex justify-between text-sm mb-2"><span className="font-bold text-slate-500">Infrastructure Risk Index</span><span className="text-slate-800 font-bold">{sortedImpacts.reduce((s,i)=>s+(i.affectedAssets?.infrastructure||0),0).toLocaleString()}</span></div>
-                <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden"><div className="animate-bar h-full bg-purple-500 w-[60%] rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div></div>
+            ))}
+            {highRisk.length === 0 && (
+              <div className="col-span-2 text-center py-10 text-slate-400 font-medium">
+                No high risk alerts active at this time.
               </div>
-              <div>
-                <div className="flex justify-between text-sm mb-2"><span className="font-bold text-slate-500">Agriculture Risk (Hectares)</span><span className="text-slate-800 font-bold">{sortedImpacts.reduce((s,i)=>s+(i.affectedAssets?.agriculture||0),0).toLocaleString()}</span></div>
-                <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden"><div className="animate-bar h-full bg-emerald-500 w-[85%] rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div></div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Impact Table */}
+        {/* Resource Deployment Optimizer */}
         <div className="bg-white rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest">Impact Assessment ({filteredImpacts.length} zones)</h3>
-            {selectedRiskFilter && <button onClick={() => setSelectedRiskFilter(null)} className="text-xs font-bold text-orange-500 hover:text-orange-600 bg-orange-50 px-4 py-2 rounded-full transition-colors shadow-sm">Clear Filter: {selectedRiskFilter}</button>}
-          </div>
-          <div className="overflow-y-auto max-h-[400px] pr-4 custom-scrollbar">
-            <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-white/95 backdrop-blur shadow-sm z-10">
-                <tr className="border-b border-slate-100 text-slate-400">
-                  <th className="text-left py-4 px-4 font-semibold">Location</th>
-                  <th className="text-left py-4 px-4 font-semibold">Hazard</th>
-                  <th className="text-center py-4 px-4 font-semibold">Risk Level</th>
-                  <th className="text-right py-4 px-4 font-semibold">Population</th>
-                  <th className="text-right py-4 px-4 font-semibold">Infrastructure</th>
-                  <th className="text-right py-4 px-4 font-semibold">Agriculture</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredImpacts.map((imp, idx) => {
-                  const riskColor = imp.riskLevel === 'HIGH' ? 'text-red-500' : imp.riskLevel === 'MEDIUM' ? 'text-orange-400' : 'text-green-500';
-                  return (
-                    <tr key={idx} className="glass-row border-b border-slate-50 cursor-pointer">
-                      <td className="py-4 px-4 text-slate-700 max-w-[150px] truncate font-bold">{imp.location}</td>
-                      <td className="py-4 px-4"><span className={`text-[10px] uppercase font-bold px-3 py-1 rounded-full border shadow-sm ${HAZARD_COLORS[imp.hazard]?.text || 'text-slate-600'} ${HAZARD_COLORS[imp.hazard]?.bg || 'bg-slate-50'} ${HAZARD_COLORS[imp.hazard]?.border || 'border-slate-200'}`}>{imp.hazard}</span></td>
-                      <td className={`py-4 px-4 text-center font-bold text-xs ${riskColor}`}>{imp.riskLevel}</td>
-                      
-                      <td className="py-4 px-4 text-right">
-                        <div className="flex flex-col items-end">
-                          <span className="text-slate-800 font-bold">{imp.affectedAssets?.population?.toLocaleString() || 'N/A'}</span>
-                          <div className="w-24 h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden"><div className="animate-bar h-full bg-blue-400 rounded-full" style={{width: `${Math.min(100, (imp.affectedAssets?.population||0)/10000)}%`}}></div></div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="flex flex-col items-end">
-                          <span className="text-slate-800 font-bold">{imp.affectedAssets?.infrastructure?.toLocaleString() || 'N/A'}</span>
-                          <div className="w-24 h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden"><div className="animate-bar h-full bg-purple-400 rounded-full" style={{width: `${Math.min(100, (imp.affectedAssets?.infrastructure||0)/2)}%`}}></div></div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="flex flex-col items-end">
-                          <span className="text-slate-800 font-bold">{imp.affectedAssets?.agriculture?.toLocaleString() || 'N/A'}</span>
-                          <div className="w-24 h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden"><div className="animate-bar h-full bg-emerald-400 rounded-full" style={{width: `${Math.min(100, (imp.affectedAssets?.agriculture||0)/250)}%`}}></div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-widest flex items-center">
+            <Search className="w-5 h-5 mr-3 text-blue-500" /> Resource Deployment Optimizer
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-slate-700">Medical Units</h3>
+                <span className="text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">PRIORITY</span>
+              </div>
+              <ul className="space-y-3">
+                {highRisk.slice(0, 3).map((item, idx) => (
+                  <li key={idx} className="flex justify-between items-center text-xs">
+                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
+                    <span className="font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 10000)} Units</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full mt-5 text-xs font-bold text-white bg-blue-500 hover:bg-blue-600 py-2.5 rounded-xl transition-colors shadow-sm">Dispatch Medical</button>
+            </div>
+
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-slate-700">Relief Supplies</h3>
+                <span className="text-[10px] font-bold bg-amber-100 text-amber-600 px-2 py-1 rounded">STANDBY</span>
+              </div>
+              <ul className="space-y-3">
+                {medRisk.slice(0, 3).map((item, idx) => (
+                  <li key={idx} className="flex justify-between items-center text-xs">
+                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
+                    <span className="font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 5000)} Tons</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full mt-5 text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 py-2.5 rounded-xl transition-colors shadow-sm">Prepare Logistics</button>
+            </div>
+
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-slate-700">Evacuation Transport</h3>
+                <span className="text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded">CRITICAL</span>
+              </div>
+              <ul className="space-y-3">
+                {sortedImpacts.slice(0, 3).map((item, idx) => (
+                  <li key={idx} className="flex justify-between items-center text-xs">
+                    <span className="font-semibold text-slate-600 truncate mr-2">{item.location}</span>
+                    <span className="font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded">{Math.ceil((item.affectedAssets?.population || 0) / 50000)} Buses</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full mt-5 text-xs font-bold text-white bg-purple-500 hover:bg-purple-600 py-2.5 rounded-xl transition-colors shadow-sm">Coordinate Transport</button>
+            </div>
           </div>
         </div>
       </div>
