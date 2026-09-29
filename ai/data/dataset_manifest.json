@@ -1,0 +1,42 @@
+{
+  "datasets": [
+    {
+      "name": "NEPS-G_Ensemble",
+      "status": "NOT_AVAILABLE",
+      "required_for": ["True EFI", "Operational Ensemble Forecasting"],
+      "expected_metadata": {
+        "source": "NCMRWF / IMD",
+        "variables": ["temperature_2m", "total_precipitation", "u_component_of_wind", "v_component_of_wind", "surface_pressure", "geopotential_500hPa"],
+        "ensemble_members": 23,
+        "resolution_km": 12,
+        "time_period": "Real-time daily feeds",
+        "spatial_extent": "India (Lat: 8-38N, Lon: 68-98E)"
+      },
+      "integration_notes": "Requires NCMRWF FTP/API credentials and data sharing agreement. Open-Meteo is currently used as a deterministic fallback adapter for demonstrations."
+    },
+    {
+      "name": "IMDAA_Historical_Climatology",
+      "status": "PARTIAL",
+      "required_for": ["30-year Climatology Baseline", "True Extreme Forecast Index (EFI)"],
+      "expected_metadata": {
+        "source": "NCMRWF / IMD (IMDAA Regional Reanalysis)",
+        "variables": ["temperature_2m", "total_precipitation", "u_component_of_wind", "v_component_of_wind", "surface_pressure"],
+        "resolution_km": 12,
+        "time_period_required": "1990-2020 (30 years)",
+        "time_period_available": "2016-2020 (5 years)",
+        "spatial_extent": "India (Lat: 8-38N, Lon: 68-98E)"
+      },
+      "integration_notes": "Currently simulating a 5-year baseline (2016-2020) where available. 30-year dataset requires bulk download from NCMRWF or Copernicus."
+    }
+  ],
+  "preprocessing_steps": {
+    "regridding_method": "Bilinear interpolation to regular 12km grid",
+    "missing_data_treatment": "Reject dataset if missing values > 10%. Linear interpolation for smaller temporal gaps.",
+    "units": {
+      "temperature_2m": "Kelvin (K)",
+      "total_precipitation": "Millimeters (mm)",
+      "wind": "Meters per second (m/s)",
+      "pressure": "Pascals (Pa)"
+    }
+  }
+}

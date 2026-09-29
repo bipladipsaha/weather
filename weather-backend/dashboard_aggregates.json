@@ -1,0 +1,135 @@
+{
+  "eventIntensityEvolution": [
+    {
+      "lead": "0h",
+      "intensity": 3.18,
+      "probability": 97.5
+    },
+    {
+      "lead": "12h",
+      "intensity": 4.55,
+      "probability": 97.1
+    },
+    {
+      "lead": "24h",
+      "intensity": 4.52,
+      "probability": 97
+    },
+    {
+      "lead": "36h",
+      "intensity": 4.51,
+      "probability": 96.9
+    },
+    {
+      "lead": "48h",
+      "intensity": 4.43,
+      "probability": 96.9
+    },
+    {
+      "lead": "60h",
+      "intensity": 4.44,
+      "probability": 97
+    },
+    {
+      "lead": "72h",
+      "intensity": 4.45,
+      "probability": 96.9
+    },
+    {
+      "lead": "96h",
+      "intensity": 4.45,
+      "probability": 96.8
+    },
+    {
+      "lead": "120h",
+      "intensity": 4.44,
+      "probability": 96.6
+    }
+  ],
+  "monthlyDistribution": [
+    {
+      "month": "Jan",
+      "heat": 533,
+      "cold": 553,
+      "rainfall": 601,
+      "cyclone": 183
+    },
+    {
+      "month": "Feb",
+      "heat": 473,
+      "cold": 482,
+      "rainfall": 533,
+      "cyclone": 165
+    },
+    {
+      "month": "Mar",
+      "heat": 533,
+      "cold": 553,
+      "rainfall": 601,
+      "cyclone": 183
+    },
+    {
+      "month": "Apr",
+      "heat": 516,
+      "cold": 536,
+      "rainfall": 581,
+      "cyclone": 177
+    },
+    {
+      "month": "May",
+      "heat": 533,
+      "cold": 553,
+      "rainfall": 601,
+      "cyclone": 183
+    },
+    {
+      "month": "Jun",
+      "heat": 499,
+      "cold": 536,
+      "rainfall": 562,
+      "cyclone": 174
+    },
+    {
+      "month": "Jul",
+      "heat": 533,
+      "cold": 545,
+      "rainfall": 601,
+      "cyclone": 183
+    },
+    {
+      "month": "Aug",
+      "heat": 516,
+      "cold": 536,
+      "rainfall": 581,
+      "cyclone": 177
+    },
+    {
+      "month": "Sep",
+      "heat": 387,
+      "cold": 446,
+      "rainfall": 562,
+      "cyclone": 171
+    },
+    {
+      "month": "Oct",
+      "heat": 507,
+      "cold": 527,
+      "rainfall": 601,
+      "cyclone": 177
+    },
+    {
+      "month": "Nov",
+      "heat": 499,
+      "cold": 518,
+      "rainfall": 581,
+      "cyclone": 174
+    },
+    {
+      "month": "Dec",
+      "heat": 533,
+      "cold": 553,
+      "rainfall": 601,
+      "cyclone": 183
+    }
+  ]
+}

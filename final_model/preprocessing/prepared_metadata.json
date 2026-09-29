@@ -1,0 +1,94 @@
+{
+  "project": "SIH26078",
+  "model": "STEA-Net",
+  "preprocessing_version": "V3",
+  "input_shape": [
+    30,
+    9,
+    30,
+    26
+  ],
+  "channel_names": [
+    "2m_temperature",
+    "10m_u_component_of_wind",
+    "10m_v_component_of_wind",
+    "mean_sea_level_pressure",
+    "total_precipitation_6hr",
+    "geopotential_1000hPa",
+    "geopotential_850hPa",
+    "geopotential_700hPa",
+    "geopotential_500hPa",
+    "geopotential_300hPa",
+    "temperature_1000hPa",
+    "temperature_850hPa",
+    "temperature_700hPa",
+    "temperature_500hPa",
+    "temperature_300hPa",
+    "u_component_of_wind_1000hPa",
+    "u_component_of_wind_850hPa",
+    "u_component_of_wind_700hPa",
+    "u_component_of_wind_500hPa",
+    "u_component_of_wind_300hPa",
+    "v_component_of_wind_1000hPa",
+    "v_component_of_wind_850hPa",
+    "v_component_of_wind_700hPa",
+    "v_component_of_wind_500hPa",
+    "v_component_of_wind_300hPa",
+    "specific_humidity_1000hPa",
+    "specific_humidity_850hPa",
+    "specific_humidity_700hPa",
+    "specific_humidity_500hPa",
+    "specific_humidity_300hPa"
+  ],
+  "lead_hours": [
+    0,
+    12,
+    24,
+    36,
+    48,
+    60,
+    72,
+    96,
+    120
+  ],
+  "pressure_levels": [
+    1000,
+    850,
+    700,
+    500,
+    300
+  ],
+  "train_samples": 2000,
+  "val_samples": 730,
+  "test_samples": 730,
+  "rain_q98_m_per_6h": 0.00798788946121931,
+  "events": [
+    "heat",
+    "cold",
+    "rain",
+    "cyclone"
+  ],
+  "candidate_thresholds": {
+    "heat_z": 2.0,
+    "cold_z": -2.0,
+    "rain_percentile": 98.0,
+    "cyclone_mslp_z": -2.0,
+    "cyclone_wind_z": 2.0
+  },
+  "positive_counts": [
+    429667,
+    345905,
+    249601,
+    139219
+  ],
+  "positive_weights": [
+    31.676468055494137,
+    39.58917910987121,
+    50.0,
+    50.0
+  ],
+  "precipitation_0h_handling": "0h total_precipitation_6hr input anomaly set to zero and rainfall target disabled",
+  "climatology_alignment": "initialization_time + forecast_lead",
+  "X_dtype": "float16",
+  "y_dtype": "uint8"
+}

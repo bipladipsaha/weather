@@ -1,0 +1,121 @@
+{
+  "downscaling_problem": {
+    "description": "12 km to 5 km conditional diffusion downscaling for India",
+    "effective_resolution_gain": "~3x (ERA5 31km -> ERA5-Land 9km) or ~1.2x (IMDAA 12km -> ERA5-Land 9km)",
+    "honest_note": "No native 5 km observational target exists. ERA5-Land at 0.1 deg (~9 km) is the highest freely available gridded reanalysis for India."
+  },
+  "coarse": {
+    "primary_source": "ERA5",
+    "alternative_source": "IMDAA",
+    "resolution_deg": 0.25,
+    "resolution_km": 31,
+    "variables": [
+      "2m_temperature",
+      "total_precipitation",
+      "10m_u_component_of_wind",
+      "10m_v_component_of_wind",
+      "mean_sea_level_pressure"
+    ],
+    "shape_per_sample": {
+      "description": "[variables, lat, lon]",
+      "lat_points": 129,
+      "lon_points": 121,
+      "note": "India bbox 6N-38N, 68E-98E at 0.25 deg"
+    }
+  },
+  "target": {
+    "source": "ERA5-Land",
+    "native_resolution_deg": 0.1,
+    "native_resolution_km": 9,
+    "regridded_resolution_deg": 0.05,
+    "regridded_resolution_km": 5,
+    "regridding_creates_new_information": false,
+    "variables": [
+      "2m_temperature",
+      "total_precipitation",
+      "10m_u_component_of_wind",
+      "10m_v_component_of_wind"
+    ],
+    "shape_per_sample": {
+      "description": "[variables, lat, lon]",
+      "lat_points": 321,
+      "lon_points": 301,
+      "note": "India bbox 6N-38N, 68E-98E at 0.1 deg"
+    },
+    "missing_variables_vs_coarse": [
+      "mean_sea_level_pressure"
+    ]
+  },
+  "conditioning": {
+    "terrain": {
+      "available": true,
+      "source": "SRTM DEM",
+      "native_resolution_m": 30,
+      "aggregated_to_target_grid": true,
+      "variables": ["elevation", "slope", "aspect"]
+    },
+    "land_cover": {
+      "available": false,
+      "note": "Could be added from ESA WorldCover or similar"
+    }
+  },
+  "training_sample": {
+    "timestamp": "ISO 8601",
+    "spatial_extent": {
+      "lat_min": 6.0,
+      "lat_max": 38.0,
+      "lon_min": 68.0,
+      "lon_max": 98.0
+    },
+    "temporal_resolution_hours": 6,
+    "fields": {
+      "coarse_input": "[C_coarse, H_coarse, W_coarse]",
+      "target_output": "[C_target, H_target, W_target]",
+      "terrain_conditioning": "[C_terrain, H_target, W_target]"
+    }
+  },
+  "data_availability": {
+    "era5_coarse": {
+      "available": false,
+      "access_method": "CDS API",
+      "registration_required": true,
+      "cost": "free"
+    },
+    "era5_land_target": {
+      "available": false,
+      "access_method": "CDS API",
+      "registration_required": true,
+      "cost": "free"
+    },
+    "imdaa_coarse": {
+      "available": false,
+      "access_method": "NCMRWF portal",
+      "registration_required": true,
+      "cost": "free (for Indian institutions)"
+    },
+    "srtm_dem": {
+      "available": false,
+      "access_method": "USGS EarthExplorer",
+      "registration_required": true,
+      "cost": "free"
+    }
+  },
+  "extreme_event_requirements": {
+    "heat_waves": {
+      "season": "May-June",
+      "min_examples_per_year": 5
+    },
+    "heavy_rainfall": {
+      "season": "June-September",
+      "min_examples_per_year": 30
+    },
+    "cold_waves": {
+      "season": "December-February",
+      "min_examples_per_year": 3
+    },
+    "cyclones": {
+      "season": "October-December, April-May",
+      "min_examples_per_year": 4
+    }
+  }
+}

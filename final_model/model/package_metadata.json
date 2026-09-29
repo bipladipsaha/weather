@@ -1,0 +1,57 @@
+{
+  "project": "SIH26078",
+  "model": "STEA-Net",
+  "input": {
+    "channels": 30,
+    "leads": [
+      0,
+      12,
+      24,
+      36,
+      48,
+      60,
+      72,
+      96,
+      120
+    ],
+    "grid": [
+      30,
+      26
+    ]
+  },
+  "trained": true,
+  "best_epoch": 27,
+  "best_validation_mean_f1": 0.879291082059469,
+  "test_mean_f1": 0.8580389410284668,
+  "event_engine": {
+    "persistent_event_id": true,
+    "tracking": true,
+    "footprint": true,
+    "intensity": true,
+    "persistence": true,
+    "movement": true,
+    "confidence_proxy": true,
+    "track_uncertainty_proxy": true,
+    "forecast_evolution": true,
+    "escalation_detection": true,
+    "compound_hazard_detection": true,
+    "historical_analogue_engine": true,
+    "adaptive_refinement_requests": true,
+    "impact_engine_interface": true,
+    "forecast_observation_nowcast_schema": true,
+    "event_peak_time": true,
+    "event_probability": true,
+    "risk_level": true,
+    "risk_evolution": true,
+    "digital_twin_event_object": true
+  },
+  "data_availability_notes": {
+    "ensemble_uncertainty": "Not available; deterministic model confidence proxy used.",
+    "district_exposure": "Not computed; GIS/exposure layers are not attached.",
+    "observation_validation": "Not attached to this run.",
+    "nowcast": "Not attached to this run.",
+    "high_resolution_refinement": "Request generation implemented; higher-resolution model/data not attached.",
+    "historical_analogues": "Built from candidate-label training events; not independent historical event observations."
+  },
+  "severity_definition": "0.40 intensity + 0.20 area + 0.20 persistence + 0.20 confidence"
+}

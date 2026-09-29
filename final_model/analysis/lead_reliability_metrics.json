@@ -1,0 +1,298 @@
+{
+  "heat": [
+    {
+      "lead_hour": 0,
+      "f1": 0.8752196357791792,
+      "brier_score": 0.014362179674208164,
+      "ece": 0.014645430400554105,
+      "positive_rate": 0.07163505444327362,
+      "mean_probability_on_positive": 0.7879447340965271
+    },
+    {
+      "lead_hour": 12,
+      "f1": 0.8627844264669832,
+      "brier_score": 0.009606053121387959,
+      "ece": 0.009598518260474954,
+      "positive_rate": 0.04403933965577801,
+      "mean_probability_on_positive": 0.7716412544250488
+    },
+    {
+      "lead_hour": 24,
+      "f1": 0.8578061520603598,
+      "brier_score": 0.00841826293617487,
+      "ece": 0.008349412357363317,
+      "positive_rate": 0.0373112047769582,
+      "mean_probability_on_positive": 0.7636012434959412
+    },
+    {
+      "lead_hour": 36,
+      "f1": 0.8610835264261282,
+      "brier_score": 0.007810255046933889,
+      "ece": 0.0077245597034158895,
+      "positive_rate": 0.03554267650158061,
+      "mean_probability_on_positive": 0.7695286273956299
+    },
+    {
+      "lead_hour": 48,
+      "f1": 0.8619943212167215,
+      "brier_score": 0.0075921970419585705,
+      "ece": 0.007565693313882022,
+      "positive_rate": 0.03488935721812434,
+      "mean_probability_on_positive": 0.7714459896087646
+    },
+    {
+      "lead_hour": 60,
+      "f1": 0.8641494525341461,
+      "brier_score": 0.00741582503542304,
+      "ece": 0.007320438586371714,
+      "positive_rate": 0.03469090270460133,
+      "mean_probability_on_positive": 0.7757109999656677
+    },
+    {
+      "lead_hour": 72,
+      "f1": 0.8615835116567181,
+      "brier_score": 0.007665306329727173,
+      "ece": 0.007676643153471321,
+      "positive_rate": 0.03492096944151739,
+      "mean_probability_on_positive": 0.768345832824707
+    },
+    {
+      "lead_hour": 96,
+      "f1": 0.8590036870576203,
+      "brier_score": 0.008224619552493095,
+      "ece": 0.008278683596403503,
+      "positive_rate": 0.03664207938180541,
+      "mean_probability_on_positive": 0.7638562917709351
+    },
+    {
+      "lead_hour": 120,
+      "f1": 0.8610768598438142,
+      "brier_score": 0.008353978395462036,
+      "ece": 0.008523552837311526,
+      "positive_rate": 0.03836670179135933,
+      "mean_probability_on_positive": 0.7666609883308411
+    }
+  ],
+  "cold": [
+    {
+      "lead_hour": 0,
+      "f1": 0.9137753349364479,
+      "brier_score": 0.004570979159325361,
+      "ece": 0.004552063925416167,
+      "positive_rate": 0.032899543378995436,
+      "mean_probability_on_positive": 0.8502059578895569
+    },
+    {
+      "lead_hour": 12,
+      "f1": 0.9044940921521077,
+      "brier_score": 0.0056708441115915775,
+      "ece": 0.005788423402354638,
+      "positive_rate": 0.0368809272918862,
+      "mean_probability_on_positive": 0.8338565826416016
+    },
+    {
+      "lead_hour": 24,
+      "f1": 0.9040703620372265,
+      "brier_score": 0.005717195570468903,
+      "ece": 0.0057637515729002066,
+      "positive_rate": 0.03718475588338602,
+      "mean_probability_on_positive": 0.8344122767448425
+    },
+    {
+      "lead_hour": 36,
+      "f1": 0.8998421692669927,
+      "brier_score": 0.005910954438149929,
+      "ece": 0.005996903677676742,
+      "positive_rate": 0.03690024587284861,
+      "mean_probability_on_positive": 0.8279904723167419
+    },
+    {
+      "lead_hour": 48,
+      "f1": 0.9019100525074195,
+      "brier_score": 0.005897722207009792,
+      "ece": 0.005852642823802324,
+      "positive_rate": 0.03743765367053038,
+      "mean_probability_on_positive": 0.8325516581535339
+    },
+    {
+      "lead_hour": 60,
+      "f1": 0.9008485351739887,
+      "brier_score": 0.005867193453013897,
+      "ece": 0.005869806598038433,
+      "positive_rate": 0.03671232876712329,
+      "mean_probability_on_positive": 0.8289165496826172
+    },
+    {
+      "lead_hour": 72,
+      "f1": 0.9024665981500514,
+      "brier_score": 0.005811807233840227,
+      "ece": 0.005804016947599723,
+      "positive_rate": 0.03697400772743239,
+      "mean_probability_on_positive": 0.8324952721595764
+    },
+    {
+      "lead_hour": 96,
+      "f1": 0.9041179236151442,
+      "brier_score": 0.0053070541471242905,
+      "ece": 0.00525016759461087,
+      "positive_rate": 0.034241306638566914,
+      "mean_probability_on_positive": 0.8367899656295776
+    },
+    {
+      "lead_hour": 120,
+      "f1": 0.9025050388712929,
+      "brier_score": 0.005160191562026739,
+      "ece": 0.00510527913952276,
+      "positive_rate": 0.0329768177028451,
+      "mean_probability_on_positive": 0.8342762589454651
+    }
+  ],
+  "rain": [
+    {
+      "lead_hour": 0,
+      "f1": 0.0,
+      "brier_score": 4.1871658140735235e-06,
+      "ece": 3.3903190094753866e-05,
+      "positive_rate": 0.0,
+      "mean_probability_on_positive": 0.0
+    },
+    {
+      "lead_hour": 12,
+      "f1": 0.8680085701398286,
+      "brier_score": 0.0068458798341453075,
+      "ece": 0.006408704578625265,
+      "positive_rate": 0.028535300316122236,
+      "mean_probability_on_positive": 0.9407204389572144
+    },
+    {
+      "lead_hour": 24,
+      "f1": 0.8626814534307096,
+      "brier_score": 0.0066481297835707664,
+      "ece": 0.006163297598513546,
+      "positive_rate": 0.026916051984545136,
+      "mean_probability_on_positive": 0.93128502368927
+    },
+    {
+      "lead_hour": 36,
+      "f1": 0.8628709837452943,
+      "brier_score": 0.00692633306607604,
+      "ece": 0.006279396016241001,
+      "positive_rate": 0.02804004214963119,
+      "mean_probability_on_positive": 0.9202751517295837
+    },
+    {
+      "lead_hour": 48,
+      "f1": 0.8656087134742636,
+      "brier_score": 0.006653910037130117,
+      "ece": 0.005923658077826532,
+      "positive_rate": 0.0280927291886196,
+      "mean_probability_on_positive": 0.9196408987045288
+    },
+    {
+      "lead_hour": 60,
+      "f1": 0.8593396918561995,
+      "brier_score": 0.007000976707786322,
+      "ece": 0.0063264177054491305,
+      "positive_rate": 0.02785563751317176,
+      "mean_probability_on_positive": 0.9189473390579224
+    },
+    {
+      "lead_hour": 72,
+      "f1": 0.8597425394967817,
+      "brier_score": 0.007076730951666832,
+      "ece": 0.006372045059454497,
+      "positive_rate": 0.02798735511064278,
+      "mean_probability_on_positive": 0.9159919023513794
+    },
+    {
+      "lead_hour": 96,
+      "f1": 0.8467901234567902,
+      "brier_score": 0.007305173669010401,
+      "ece": 0.006814377094659214,
+      "positive_rate": 0.025969441517386723,
+      "mean_probability_on_positive": 0.9208984375
+    },
+    {
+      "lead_hour": 120,
+      "f1": 0.8363231473462823,
+      "brier_score": 0.007730050478130579,
+      "ece": 0.007349146837345709,
+      "positive_rate": 0.0253477344573235,
+      "mean_probability_on_positive": 0.9288955926895142
+    }
+  ],
+  "cyclone": [
+    {
+      "lead_hour": 0,
+      "f1": 0.8095582910934106,
+      "brier_score": 0.005514188669621944,
+      "ece": 0.004748152845526396,
+      "positive_rate": 0.01787846856340007,
+      "mean_probability_on_positive": 0.7656663656234741
+    },
+    {
+      "lead_hour": 12,
+      "f1": 0.8144065380594887,
+      "brier_score": 0.005824096500873566,
+      "ece": 0.004982377016674145,
+      "positive_rate": 0.01929048120828943,
+      "mean_probability_on_positive": 0.775495171546936
+    },
+    {
+      "lead_hour": 24,
+      "f1": 0.8105361305361305,
+      "brier_score": 0.006068736780434847,
+      "ece": 0.005117648354864641,
+      "positive_rate": 0.019726027397260273,
+      "mean_probability_on_positive": 0.7670189738273621
+    },
+    {
+      "lead_hour": 36,
+      "f1": 0.8055648515561505,
+      "brier_score": 0.006071579176932573,
+      "ece": 0.005156280902715831,
+      "positive_rate": 0.019399367755532138,
+      "mean_probability_on_positive": 0.7575048208236694
+    },
+    {
+      "lead_hour": 48,
+      "f1": 0.8057780452798741,
+      "brier_score": 0.006270867772400379,
+      "ece": 0.005330791971559561,
+      "positive_rate": 0.01986652616789603,
+      "mean_probability_on_positive": 0.7628588080406189
+    },
+    {
+      "lead_hour": 60,
+      "f1": 0.8072490622316627,
+      "brier_score": 0.006340759340673685,
+      "ece": 0.005434538658811704,
+      "positive_rate": 0.02044432736213558,
+      "mean_probability_on_positive": 0.762370765209198
+    },
+    {
+      "lead_hour": 72,
+      "f1": 0.8059635462749956,
+      "brier_score": 0.006530069280415773,
+      "ece": 0.0055619724327780114,
+      "positive_rate": 0.020823674042852125,
+      "mean_probability_on_positive": 0.7620067596435547
+    },
+    {
+      "lead_hour": 96,
+      "f1": 0.8032598104349367,
+      "brier_score": 0.006638253107666969,
+      "ece": 0.005687750119220009,
+      "positive_rate": 0.020848261327713384,
+      "mean_probability_on_positive": 0.7588687539100647
+    },
+    {
+      "lead_hour": 120,
+      "f1": 0.7986316014539234,
+      "brier_score": 0.007034408859908581,
+      "ece": 0.006129544992843844,
+      "positive_rate": 0.02149104320337197,
+      "mean_probability_on_positive": 0.7592551708221436
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "weather-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@turf/turf": "^7.4.0",
+    "city-reverse-geocoder": "^0.0.1",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "geoblaze": "^2.8.0",
+    "node-fetch": "^3.3.2",
+    "reverse-geocode": "^1.3.3"
+  }
+}

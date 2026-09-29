@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+.env
+*.npy
+*.pt
+*.pth
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+SIH26078_COMPLETE_BACKUP/
+*.nc
+*.tif
+final_model/event/persistent_events.json
+ai/data/raw_era5/
+ai/data/raw_era5_land/

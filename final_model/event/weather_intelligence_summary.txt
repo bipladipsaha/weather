@@ -1,0 +1,12 @@
+SIH26078 Weather Intelligence Summary
+Detected 21536 persistent candidate events.
+EVT-0122-RAI-002 | rain | EXTREME | lead 12–96h | area 300432 km² | confidence 1.00 | movement W 9.2 km/h
+EVT-0119-RAI-001 | rain | EXTREME | lead 12–96h | area 497571 km² | confidence 1.00 | movement NW 14.0 km/h
+EVT-0682-RAI-007 | rain | EXTREME | lead 48–120h | area 358924 km² | confidence 1.00 | movement NW 4.8 km/h
+EVT-0602-RAI-005 | rain | EXTREME | lead 36–120h | area 572943 km² | confidence 1.00 | movement S 18.5 km/h
+EVT-0324-RAI-007 | rain | EXTREME | lead 48–120h | area 424852 km² | confidence 1.00 | movement SW 4.6 km/h
+EVT-0481-COL-008 | cold | EXTREME | lead 36–120h | area 686356 km² | confidence 0.99 | movement W 13.7 km/h
+EVT-0686-RAI-001 | rain | EXTREME | lead 12–120h | area 914531 km² | confidence 0.99 | movement NW 16.0 km/h
+EVT-0587-RAI-007 | rain | EXTREME | lead 48–120h | area 823171 km² | confidence 0.99 | movement NE 20.7 km/h
+EVT-0198-COL-002 | cold | EXTREME | lead 0–96h | area 771054 km² | confidence 0.99 | movement W 9.5 km/h
+EVT-0271-COL-007 | cold | EXTREME | lead 48–120h | area 868121 km² | confidence 0.99 | movement W 8.6 km/h

@@ -1,0 +1,38 @@
+{
+  "seed": 26078,
+  "device": "cuda",
+  "amp": true,
+  "batch_size": 8,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "max_epochs": 100,
+  "early_stopping_patience": 10,
+  "scheduler_factor": 0.5,
+  "scheduler_patience": 3,
+  "min_lr": 1e-06,
+  "gradient_clip_norm": 1.0,
+  "loss": "0.7 weighted BCE + 0.3 Dice",
+  "lead_hours": [
+    0,
+    12,
+    24,
+    36,
+    48,
+    60,
+    72,
+    96,
+    120
+  ],
+  "input_shape": [
+    30,
+    9,
+    30,
+    26
+  ],
+  "event_names": [
+    "heat",
+    "cold",
+    "rain",
+    "cyclone"
+  ]
+}

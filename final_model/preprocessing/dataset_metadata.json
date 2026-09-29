@@ -1,0 +1,51 @@
+{
+  "project": "SIH26078",
+  "cache_version": "SIH26078_cache_v1",
+  "region": {
+    "longitude_min": 61.49999999999999,
+    "longitude_max": 99.0,
+    "latitude_min": -4.5,
+    "latitude_max": 38.99999999999999
+  },
+  "lead_hours": [
+    0,
+    12,
+    24,
+    36,
+    48,
+    60,
+    72,
+    96,
+    120
+  ],
+  "pressure_levels_hpa": [
+    1000,
+    850,
+    700,
+    500,
+    300
+  ],
+  "grid": {
+    "longitude_points": 26,
+    "latitude_points": 30
+  },
+  "variables": [
+    "2m_temperature",
+    "10m_u_component_of_wind",
+    "10m_v_component_of_wind",
+    "mean_sea_level_pressure",
+    "total_precipitation_6hr",
+    "geopotential",
+    "temperature",
+    "u_component_of_wind",
+    "v_component_of_wind",
+    "specific_humidity"
+  ],
+  "training_samples": 2000,
+  "available_training_samples": 3654,
+  "validation_samples": 730,
+  "test_samples": 730,
+  "remote_block_size": 64,
+  "dask_workers": 16,
+  "source": "WeatherBench2 HRES"
+}

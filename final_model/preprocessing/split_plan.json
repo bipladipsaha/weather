@@ -1,0 +1,456 @@
+{
+  "train_blocks": [
+    {
+      "id": 0,
+      "count": 63,
+      "start_position": 25,
+      "end_position": 87,
+      "start_time": "2016-01-13T12:00:00.000000000",
+      "end_time": "2016-02-13T12:00:00.000000000"
+    },
+    {
+      "id": 1,
+      "count": 63,
+      "start_position": 139,
+      "end_position": 201,
+      "start_time": "2016-03-10T12:00:00.000000000",
+      "end_time": "2016-04-10T12:00:00.000000000"
+    },
+    {
+      "id": 2,
+      "count": 63,
+      "start_position": 253,
+      "end_position": 315,
+      "start_time": "2016-05-06T12:00:00.000000000",
+      "end_time": "2016-06-06T12:00:00.000000000"
+    },
+    {
+      "id": 3,
+      "count": 63,
+      "start_position": 367,
+      "end_position": 429,
+      "start_time": "2016-07-02T12:00:00.000000000",
+      "end_time": "2016-08-02T12:00:00.000000000"
+    },
+    {
+      "id": 4,
+      "count": 63,
+      "start_position": 481,
+      "end_position": 543,
+      "start_time": "2016-08-28T12:00:00.000000000",
+      "end_time": "2016-09-28T12:00:00.000000000"
+    },
+    {
+      "id": 5,
+      "count": 63,
+      "start_position": 596,
+      "end_position": 658,
+      "start_time": "2016-10-25T00:00:00.000000000",
+      "end_time": "2016-11-25T00:00:00.000000000"
+    },
+    {
+      "id": 6,
+      "count": 63,
+      "start_position": 710,
+      "end_position": 772,
+      "start_time": "2016-12-21T00:00:00.000000000",
+      "end_time": "2017-01-21T00:00:00.000000000"
+    },
+    {
+      "id": 7,
+      "count": 63,
+      "start_position": 824,
+      "end_position": 886,
+      "start_time": "2017-02-16T00:00:00.000000000",
+      "end_time": "2017-03-19T00:00:00.000000000"
+    },
+    {
+      "id": 8,
+      "count": 63,
+      "start_position": 938,
+      "end_position": 1000,
+      "start_time": "2017-04-14T00:00:00.000000000",
+      "end_time": "2017-05-15T00:00:00.000000000"
+    },
+    {
+      "id": 9,
+      "count": 63,
+      "start_position": 1052,
+      "end_position": 1114,
+      "start_time": "2017-06-10T00:00:00.000000000",
+      "end_time": "2017-07-11T00:00:00.000000000"
+    },
+    {
+      "id": 10,
+      "count": 63,
+      "start_position": 1167,
+      "end_position": 1229,
+      "start_time": "2017-08-06T12:00:00.000000000",
+      "end_time": "2017-09-06T12:00:00.000000000"
+    },
+    {
+      "id": 11,
+      "count": 63,
+      "start_position": 1281,
+      "end_position": 1343,
+      "start_time": "2017-10-02T12:00:00.000000000",
+      "end_time": "2017-11-02T12:00:00.000000000"
+    },
+    {
+      "id": 12,
+      "count": 63,
+      "start_position": 1395,
+      "end_position": 1457,
+      "start_time": "2017-11-28T12:00:00.000000000",
+      "end_time": "2017-12-29T12:00:00.000000000"
+    },
+    {
+      "id": 13,
+      "count": 63,
+      "start_position": 1509,
+      "end_position": 1571,
+      "start_time": "2018-01-24T12:00:00.000000000",
+      "end_time": "2018-02-24T12:00:00.000000000"
+    },
+    {
+      "id": 14,
+      "count": 63,
+      "start_position": 1623,
+      "end_position": 1685,
+      "start_time": "2018-03-22T12:00:00.000000000",
+      "end_time": "2018-04-22T12:00:00.000000000"
+    },
+    {
+      "id": 15,
+      "count": 63,
+      "start_position": 1738,
+      "end_position": 1800,
+      "start_time": "2018-05-19T00:00:00.000000000",
+      "end_time": "2018-06-19T00:00:00.000000000"
+    },
+    {
+      "id": 16,
+      "count": 62,
+      "start_position": 1853,
+      "end_position": 1914,
+      "start_time": "2018-07-15T12:00:00.000000000",
+      "end_time": "2018-08-15T00:00:00.000000000"
+    },
+    {
+      "id": 17,
+      "count": 62,
+      "start_position": 1967,
+      "end_position": 2028,
+      "start_time": "2018-09-10T12:00:00.000000000",
+      "end_time": "2018-10-11T00:00:00.000000000"
+    },
+    {
+      "id": 18,
+      "count": 62,
+      "start_position": 2081,
+      "end_position": 2142,
+      "start_time": "2018-11-06T12:00:00.000000000",
+      "end_time": "2018-12-07T00:00:00.000000000"
+    },
+    {
+      "id": 19,
+      "count": 62,
+      "start_position": 2195,
+      "end_position": 2256,
+      "start_time": "2019-01-02T12:00:00.000000000",
+      "end_time": "2019-02-02T00:00:00.000000000"
+    },
+    {
+      "id": 20,
+      "count": 62,
+      "start_position": 2309,
+      "end_position": 2370,
+      "start_time": "2019-02-28T12:00:00.000000000",
+      "end_time": "2019-03-31T00:00:00.000000000"
+    },
+    {
+      "id": 21,
+      "count": 62,
+      "start_position": 2423,
+      "end_position": 2484,
+      "start_time": "2019-04-26T12:00:00.000000000",
+      "end_time": "2019-05-27T00:00:00.000000000"
+    },
+    {
+      "id": 22,
+      "count": 62,
+      "start_position": 2538,
+      "end_position": 2599,
+      "start_time": "2019-06-23T00:00:00.000000000",
+      "end_time": "2019-07-23T12:00:00.000000000"
+    },
+    {
+      "id": 23,
+      "count": 62,
+      "start_position": 2652,
+      "end_position": 2713,
+      "start_time": "2019-08-19T00:00:00.000000000",
+      "end_time": "2019-09-18T12:00:00.000000000"
+    },
+    {
+      "id": 24,
+      "count": 62,
+      "start_position": 2766,
+      "end_position": 2827,
+      "start_time": "2019-10-15T00:00:00.000000000",
+      "end_time": "2019-11-14T12:00:00.000000000"
+    },
+    {
+      "id": 25,
+      "count": 62,
+      "start_position": 2880,
+      "end_position": 2941,
+      "start_time": "2019-12-11T00:00:00.000000000",
+      "end_time": "2020-01-10T12:00:00.000000000"
+    },
+    {
+      "id": 26,
+      "count": 62,
+      "start_position": 2994,
+      "end_position": 3055,
+      "start_time": "2020-02-06T00:00:00.000000000",
+      "end_time": "2020-03-07T12:00:00.000000000"
+    },
+    {
+      "id": 27,
+      "count": 62,
+      "start_position": 3109,
+      "end_position": 3170,
+      "start_time": "2020-04-03T12:00:00.000000000",
+      "end_time": "2020-05-04T00:00:00.000000000"
+    },
+    {
+      "id": 28,
+      "count": 62,
+      "start_position": 3223,
+      "end_position": 3284,
+      "start_time": "2020-05-30T12:00:00.000000000",
+      "end_time": "2020-06-30T00:00:00.000000000"
+    },
+    {
+      "id": 29,
+      "count": 62,
+      "start_position": 3337,
+      "end_position": 3398,
+      "start_time": "2020-07-26T12:00:00.000000000",
+      "end_time": "2020-08-26T00:00:00.000000000"
+    },
+    {
+      "id": 30,
+      "count": 62,
+      "start_position": 3451,
+      "end_position": 3512,
+      "start_time": "2020-09-21T12:00:00.000000000",
+      "end_time": "2020-10-22T00:00:00.000000000"
+    },
+    {
+      "id": 31,
+      "count": 62,
+      "start_position": 3565,
+      "end_position": 3626,
+      "start_time": "2020-11-17T12:00:00.000000000",
+      "end_time": "2020-12-18T00:00:00.000000000"
+    }
+  ],
+  "val_blocks": [
+    {
+      "id": 0,
+      "count": 64,
+      "start_position": 3654,
+      "end_position": 3717,
+      "start_time": "2021-01-01T00:00:00.000000000",
+      "end_time": "2021-02-01T12:00:00.000000000"
+    },
+    {
+      "id": 1,
+      "count": 64,
+      "start_position": 3718,
+      "end_position": 3781,
+      "start_time": "2021-02-02T00:00:00.000000000",
+      "end_time": "2021-03-05T12:00:00.000000000"
+    },
+    {
+      "id": 2,
+      "count": 64,
+      "start_position": 3782,
+      "end_position": 3845,
+      "start_time": "2021-03-06T00:00:00.000000000",
+      "end_time": "2021-04-06T12:00:00.000000000"
+    },
+    {
+      "id": 3,
+      "count": 64,
+      "start_position": 3846,
+      "end_position": 3909,
+      "start_time": "2021-04-07T00:00:00.000000000",
+      "end_time": "2021-05-08T12:00:00.000000000"
+    },
+    {
+      "id": 4,
+      "count": 64,
+      "start_position": 3910,
+      "end_position": 3973,
+      "start_time": "2021-05-09T00:00:00.000000000",
+      "end_time": "2021-06-09T12:00:00.000000000"
+    },
+    {
+      "id": 5,
+      "count": 64,
+      "start_position": 3974,
+      "end_position": 4037,
+      "start_time": "2021-06-10T00:00:00.000000000",
+      "end_time": "2021-07-11T12:00:00.000000000"
+    },
+    {
+      "id": 6,
+      "count": 64,
+      "start_position": 4038,
+      "end_position": 4101,
+      "start_time": "2021-07-12T00:00:00.000000000",
+      "end_time": "2021-08-12T12:00:00.000000000"
+    },
+    {
+      "id": 7,
+      "count": 64,
+      "start_position": 4102,
+      "end_position": 4165,
+      "start_time": "2021-08-13T00:00:00.000000000",
+      "end_time": "2021-09-13T12:00:00.000000000"
+    },
+    {
+      "id": 8,
+      "count": 64,
+      "start_position": 4166,
+      "end_position": 4229,
+      "start_time": "2021-09-14T00:00:00.000000000",
+      "end_time": "2021-10-15T12:00:00.000000000"
+    },
+    {
+      "id": 9,
+      "count": 64,
+      "start_position": 4230,
+      "end_position": 4293,
+      "start_time": "2021-10-16T00:00:00.000000000",
+      "end_time": "2021-11-16T12:00:00.000000000"
+    },
+    {
+      "id": 10,
+      "count": 64,
+      "start_position": 4294,
+      "end_position": 4357,
+      "start_time": "2021-11-17T00:00:00.000000000",
+      "end_time": "2021-12-18T12:00:00.000000000"
+    },
+    {
+      "id": 11,
+      "count": 26,
+      "start_position": 4358,
+      "end_position": 4383,
+      "start_time": "2021-12-19T00:00:00.000000000",
+      "end_time": "2021-12-31T12:00:00.000000000"
+    }
+  ],
+  "test_blocks": [
+    {
+      "id": 0,
+      "count": 64,
+      "start_position": 4384,
+      "end_position": 4447,
+      "start_time": "2022-01-01T00:00:00.000000000",
+      "end_time": "2022-02-01T12:00:00.000000000"
+    },
+    {
+      "id": 1,
+      "count": 64,
+      "start_position": 4448,
+      "end_position": 4511,
+      "start_time": "2022-02-02T00:00:00.000000000",
+      "end_time": "2022-03-05T12:00:00.000000000"
+    },
+    {
+      "id": 2,
+      "count": 64,
+      "start_position": 4512,
+      "end_position": 4575,
+      "start_time": "2022-03-06T00:00:00.000000000",
+      "end_time": "2022-04-06T12:00:00.000000000"
+    },
+    {
+      "id": 3,
+      "count": 64,
+      "start_position": 4576,
+      "end_position": 4639,
+      "start_time": "2022-04-07T00:00:00.000000000",
+      "end_time": "2022-05-08T12:00:00.000000000"
+    },
+    {
+      "id": 4,
+      "count": 64,
+      "start_position": 4640,
+      "end_position": 4703,
+      "start_time": "2022-05-09T00:00:00.000000000",
+      "end_time": "2022-06-09T12:00:00.000000000"
+    },
+    {
+      "id": 5,
+      "count": 64,
+      "start_position": 4704,
+      "end_position": 4767,
+      "start_time": "2022-06-10T00:00:00.000000000",
+      "end_time": "2022-07-11T12:00:00.000000000"
+    },
+    {
+      "id": 6,
+      "count": 64,
+      "start_position": 4768,
+      "end_position": 4831,
+      "start_time": "2022-07-12T00:00:00.000000000",
+      "end_time": "2022-08-12T12:00:00.000000000"
+    },
+    {
+      "id": 7,
+      "count": 64,
+      "start_position": 4832,
+      "end_position": 4895,
+      "start_time": "2022-08-13T00:00:00.000000000",
+      "end_time": "2022-09-13T12:00:00.000000000"
+    },
+    {
+      "id": 8,
+      "count": 64,
+      "start_position": 4896,
+      "end_position": 4959,
+      "start_time": "2022-09-14T00:00:00.000000000",
+      "end_time": "2022-10-15T12:00:00.000000000"
+    },
+    {
+      "id": 9,
+      "count": 64,
+      "start_position": 4960,
+      "end_position": 5023,
+      "start_time": "2022-10-16T00:00:00.000000000",
+      "end_time": "2022-11-16T12:00:00.000000000"
+    },
+    {
+      "id": 10,
+      "count": 64,
+      "start_position": 5024,
+      "end_position": 5087,
+      "start_time": "2022-11-17T00:00:00.000000000",
+      "end_time": "2022-12-18T12:00:00.000000000"
+    },
+    {
+      "id": 11,
+      "count": 26,
+      "start_position": 5088,
+      "end_position": 5113,
+      "start_time": "2022-12-19T00:00:00.000000000",
+      "end_time": "2022-12-31T12:00:00.000000000"
+    }
+  ]
+}

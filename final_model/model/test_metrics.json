@@ -1,0 +1,13 @@
+{
+  "best_epoch": 27,
+  "best_validation_mean_f1": 0.879291082059469,
+  "test_loss": 0.8372896078106475,
+  "test_f1": {
+    "heat": 0.8639395926986514,
+    "cold": 0.9036801641393297,
+    "rain": 0.8579117250773627,
+    "cyclone": 0.8066242821985233
+  },
+  "mean_test_f1": 0.8580389410284668,
+  "evaluation_note": "Evaluation uses the current candidate threshold-generated labels, not independent real-world event annotations."
+}
