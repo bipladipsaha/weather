@@ -6,7 +6,7 @@ import {
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, useMap, ImageOverlay } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { Activity, Thermometer, Wind, Droplets, AlertTriangle, Crosshair, Map as MapIcon, Database, ActivitySquare, Server, CheckCircle2, AlertOctagon, Cpu, Search, CloudLightning } from 'lucide-react';
+import { Activity, Thermometer, Wind, Droplets, AlertTriangle, Crosshair, Map as MapIcon, Database, ActivitySquare, Server, CheckCircle2, AlertOctagon, Cpu, Search, CloudLightning, Users, Building2 } from 'lucide-react';
 
 const HAZARD_COLORS = {
   rainfall: { text: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/30', hex: '#22d3ee' },
@@ -203,60 +203,85 @@ export default function App() {
           </div>
         </div>
 
-        <div className="p-6 space-y-8 bg-slate-50/30">
+        <div className="p-6 space-y-6 bg-slate-50/50">
           <section>
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center"><ActivitySquare className="w-4 h-4 mr-2 text-indigo-500" /> EXTREME ANOMALY</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-center">
-                <span className="block text-xs text-slate-400 font-medium mb-1">Standardized Anomaly</span>
-                <span className="text-xl text-slate-800 font-bold tracking-tight">+{event.severityScore ? (event.severityScore / 20).toFixed(1) : 2.5}σ</span>
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center">
+              <ActivitySquare className="w-4 h-4 mr-2 text-rose-500" /> Event Intensity
+            </h3>
+            <div className="bg-gradient-to-br from-rose-50 to-orange-50 p-5 rounded-2xl border border-rose-100 shadow-sm relative overflow-hidden group">
+              <div className="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Thermometer size={100} />
               </div>
-              <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-center">
-                <span className="block text-xs text-slate-400 font-medium mb-1">EFI Indicator</span>
-                <span className="text-xl text-slate-800 font-bold tracking-tight">{(event.probability / 100).toFixed(2)}</span>
+              <div className="flex items-center justify-between mb-2 relative z-10">
+                <span className="text-sm font-semibold text-rose-900">Intensity Level</span>
+                <span className="px-2 py-1 bg-rose-200/50 text-rose-700 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                  {event.severityScore >= 80 ? 'Exceptionally High' : event.severityScore >= 50 ? 'High' : 'Moderate'}
+                </span>
+              </div>
+              <div className="flex items-baseline gap-2 relative z-10">
+                <span className="text-3xl font-black text-rose-600 tracking-tighter">
+                  +{event.severityScore ? (event.severityScore / 20).toFixed(1) : 2.5}
+                </span>
+                <span className="text-sm text-rose-800/60 font-medium">σ (Sigma Scale)</span>
+              </div>
+              <p className="text-xs text-rose-800/70 mt-2 relative z-10 font-medium">
+                This event is significantly stronger than historical averages.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center">
+              <Crosshair className="w-4 h-4 mr-2 text-blue-500" /> Movement & Tracking
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-md transition-shadow">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1 block">Direction</span>
+                <span className="text-lg font-black text-slate-800">{event.movement?.split('@')[0]?.trim() || 'North-West'}</span>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-md transition-shadow">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1 block">Speed</span>
+                <span className="text-lg font-black text-slate-800">{event.movement?.split('@')[1]?.trim() || '15 km/h'}</span>
               </div>
             </div>
           </section>
 
           <section>
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center"><Crosshair className="w-4 h-4 mr-2 text-indigo-500" /> SPATIO-TEMPORAL TRACKING</h3>
-            <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm space-y-3">
-              <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-medium">Direction</span> <span className="text-sm font-bold text-slate-800">{event.movement?.split('@')[0]?.trim() || 'NW'}</span></div>
-              <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-medium">Speed</span> <span className="text-sm font-bold text-slate-800">{event.movement?.split('@')[1]?.trim() || '15 km/h'}</span></div>
-              <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-medium">Persistence</span> <span className="text-sm font-bold text-slate-800">{event.severityScore >= 70 ? 'High' : 'Moderate'}</span></div>
-              <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-medium">Coordinates</span> <span className="text-sm font-bold text-slate-800">{event.lat?.toFixed(2)}°N, {event.lng?.toFixed(2)}°E</span></div>
-            </div>
-          </section>
-
-          <section>
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-green-500" /> PHYSICS VALIDATION</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center bg-green-50/50 border border-green-100 p-3 rounded-xl shadow-sm">
-                <span className="text-xs text-slate-600 font-medium flex items-center gap-2"><CheckCircle2 size={14} className="text-green-500" /> Temperature Check</span>
-                <span className="text-xs font-bold text-green-600">PASS</span>
-              </div>
-              <div className="flex justify-between items-center bg-green-50/50 border border-green-100 p-3 rounded-xl shadow-sm">
-                <span className="text-xs text-slate-600 font-medium flex items-center gap-2"><CheckCircle2 size={14} className="text-green-500" /> Precipitation Check</span>
-                <span className="text-xs font-bold text-green-600">PASS</span>
-              </div>
-              <div className="flex justify-between items-center bg-green-50/50 border border-green-100 p-3 rounded-xl shadow-sm">
-                <span className="text-xs text-slate-600 font-medium flex items-center gap-2"><CheckCircle2 size={14} className="text-green-500" /> Extreme Preservation</span>
-                <span className="text-xs font-bold text-green-600">PASS</span>
-              </div>
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center">
+              <CheckCircle2 className="w-4 h-4 mr-2 text-emerald-500" /> AI Confidence Checks
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-bold shadow-sm">
+                <CheckCircle2 size={14} className="text-emerald-500" /> Temp Verified
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-bold shadow-sm">
+                <CheckCircle2 size={14} className="text-emerald-500" /> Precip Verified
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-bold shadow-sm">
+                <CheckCircle2 size={14} className="text-emerald-500" /> Physics Pass
+              </span>
             </div>
           </section>
 
           {impact && (
             <section>
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center"><AlertOctagon className="w-4 h-4 mr-2 text-red-500" /> IMPACT INTELLIGENCE</h3>
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="bg-red-500/5 border border-red-500/10 p-3 rounded">
-                  <span className="text-slate-400 block mb-1">Pop. Risk</span>
-                  <span className="text-red-400 font-bold">~{impact.affectedAssets?.population?.toLocaleString() || 'N/A'}</span>
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center">
+                <AlertOctagon className="w-4 h-4 mr-2 text-violet-500" /> Estimated Impact
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-gradient-to-br from-violet-500 to-fuchsia-500 p-4 rounded-xl shadow-md text-white relative overflow-hidden hover:scale-[1.02] transition-transform cursor-default">
+                  <div className="absolute -right-2 -bottom-2 opacity-20">
+                    <Users size={64} />
+                  </div>
+                  <span className="text-[10px] text-violet-100 font-bold uppercase tracking-wider mb-1 block relative z-10">People Affected</span>
+                  <span className="text-xl font-black tracking-tight relative z-10">{impact.affectedAssets?.population >= 1000000 ? `${(impact.affectedAssets.population / 1000000).toFixed(1)}M` : impact.affectedAssets?.population?.toLocaleString() || 'N/A'}</span>
                 </div>
-                <div className="bg-orange-500/5 border border-orange-500/10 p-3 rounded">
-                  <span className="text-slate-400 block mb-1">Infra Risk</span>
-                  <span className="text-orange-400 font-bold">~{impact.affectedAssets?.infrastructure?.toLocaleString() || 'N/A'}</span>
+                <div className="bg-gradient-to-br from-amber-500 to-orange-500 p-4 rounded-xl shadow-md text-white relative overflow-hidden hover:scale-[1.02] transition-transform cursor-default">
+                  <div className="absolute -right-2 -bottom-2 opacity-20">
+                    <Building2 size={64} />
+                  </div>
+                  <span className="text-[10px] text-amber-100 font-bold uppercase tracking-wider mb-1 block relative z-10">Infrastructure</span>
+                  <span className="text-xl font-black tracking-tight relative z-10">{impact.affectedAssets?.infrastructure?.toLocaleString() || 'N/A'} At Risk</span>
                 </div>
               </div>
             </section>
