@@ -6,7 +6,7 @@ import {
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, useMap, ImageOverlay } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { Activity, Thermometer, Wind, Droplets, AlertTriangle, Crosshair, Map as MapIcon, Database, ActivitySquare, Server, CheckCircle2, AlertOctagon, Cpu, Search, CloudLightning, Users, Building2 } from 'lucide-react';
+import { Activity, Thermometer, Wind, Droplets, AlertTriangle, Crosshair, Map as MapIcon, Database, ActivitySquare, Server, CheckCircle2, AlertOctagon, Cpu, Search, CloudLightning, Users, Building2, X } from 'lucide-react';
 
 const HAZARD_COLORS = {
   rainfall: { text: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/30', hex: '#22d3ee' },
