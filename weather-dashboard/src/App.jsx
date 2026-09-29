@@ -71,6 +71,7 @@ export default function App() {
   const [selectedRiskFilter, setSelectedRiskFilter] = useState(null);
   const [selectedAdvisory, setSelectedAdvisory] = useState(null);
   const [isDownscaling, setIsDownscaling] = useState(false);
+  const [searchCenter, setSearchCenter] = useState(null);
   
   const [rainfallDate, setRainfallDate] = useState('2020-01-25');
   const [rainfallLayer, setRainfallLayer] = useState('AI_DOWNSCALED');
@@ -374,7 +375,7 @@ export default function App() {
                       <Circle center={[evt.lat, evt.lng]} radius={50000} pathOptions={{ color: HAZARD_COLORS[evt.category]?.hex || '#3b82f6', fillColor: HAZARD_COLORS[evt.category]?.hex || '#3b82f6', fillOpacity: 0.2, weight: 2 }} />
                     </React.Fragment>
                   ))}
-                  <MapFlyTo center={selectedEvent ? [selectedEvent.lat, selectedEvent.lng] : null} />
+                  <MapFlyTo center={searchCenter || (selectedEvent ? [selectedEvent.lat, selectedEvent.lng] : null)} />
                 </MapContainer>
               </div>
               <div className="absolute top-6 left-6 z-[1000] bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-slate-700 shadow-sm border border-slate-100">
@@ -1629,6 +1630,18 @@ export default function App() {
                         toast.classList.add('animate-out', 'fade-out', 'slide-out-to-top-2');
                         setTimeout(() => toast.remove(), 200);
                       }, 2500);
+
+                      // Actual Geocoding Search
+                      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(val)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                          if (data && data.length > 0) {
+                            setSearchCenter([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
+                            setActiveTab('OVERVIEW');
+                            setSelectedEventId(null);
+                          }
+                        })
+                        .catch(err => console.error("Geocoding failed:", err));
                     }
                   }}
                 />
