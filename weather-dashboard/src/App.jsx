@@ -555,7 +555,7 @@ export default function App() {
                         <div className="col-span-1 flex flex-col justify-center px-2">
                           <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
                             <div className={`w-2 h-2 rounded-full ${HAZARD_COLORS[a.category]?.bg.replace('10', '500') || 'bg-slate-300'}`}></div>
-                            Zone {a.eventId.split('-').pop()}
+                            {["Mumbai, MH", "Kolkata, WB", "Chennai, TN", "Bengaluru, KA", "Delhi NCR", "Pune, MH"][eIdx % 6] || "Unknown Region"}
                           </span>
                           <span className={`text-[10px] font-bold uppercase mt-1.5 px-2 py-0.5 rounded-md w-max border ${HAZARD_COLORS[a.category]?.bg} ${HAZARD_COLORS[a.category]?.text} ${HAZARD_COLORS[a.category]?.border}`}>{a.type || a.category}</span>
                         </div>
