@@ -152,44 +152,69 @@ class LiveEnsembleFeeder:
         base_deterministic = torch.zeros(1, 5, self.lead_times, self.lat_size, self.lon_size)
         
         try:
-            # Fetch real live deterministic data for South Peninsular India (Bengaluru) where rain is occurring
-            url = "https://api.open-meteo.com/v1/forecast?latitude=12.97&longitude=77.59&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m,surface_pressure&forecast_days=2"
-            req = urllib.request.Request(url, headers={'User-Agent': 'WeatherAI/1.0'})
-            with urllib.request.urlopen(req, timeout=10) as response:
-                data = json.loads(response.read().decode())
-                
-            hourly = data.get("hourly", {})
-            temps = hourly.get("temperature_2m", [20]*24)
-            precip = hourly.get("precipitation", [0]*24)
-            ws = hourly.get("windspeed_10m", [0]*24)
-            wd = hourly.get("winddirection_10m", [0]*24)
-            sp = hourly.get("surface_pressure", [1013]*24)
+            import urllib.request
+            import json
+            import math
+            import time
+            
+            # Fetch real live deterministic data for 4 corners of India to create a full country grid
+            cities = [
+                {"name": "Delhi", "lat": 28.61, "lon": 77.20, "grid_y": 25, "grid_x": 10}, # North
+                {"name": "Bengaluru", "lat": 12.97, "lon": 77.59, "grid_y": 5, "grid_x": 11}, # South
+                {"name": "Mumbai", "lat": 19.07, "lon": 72.87, "grid_y": 15, "grid_x": 3}, # West
+                {"name": "Kolkata", "lat": 22.57, "lon": 88.36, "grid_y": 18, "grid_x": 22} # East
+            ]
+            
+            city_data = []
+            for city in cities:
+                url = f"https://api.open-meteo.com/v1/forecast?latitude={city['lat']}&longitude={city['lon']}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m,surface_pressure&forecast_days=2"
+                req = urllib.request.Request(url, headers={'User-Agent': 'WeatherAI/1.0'})
+                with urllib.request.urlopen(req, timeout=10) as response:
+                    data = json.loads(response.read().decode())
+                    city_data.append(data.get("hourly", {}))
+                time.sleep(0.5) # Avoid rate limits
+            
+            print("Successfully loaded real-world weather data for all of India.")
             
             # Map the next 9 hours to the 9 lead times expected by the GNN
-            for l in range(min(self.lead_times, len(temps))):
-                t = temps[l] + 273.15 if temps[l] is not None else 300.0 # Convert C to Kelvin
-                p = precip[l] if precip[l] is not None else 0.0
-                s = ws[l] if ws[l] is not None else 0.0
-                d = wd[l] if wd[l] is not None else 0.0
-                press = sp[l] if sp[l] is not None else 1013.0
-                
-                # Convert wind speed/direction to U and V vectors
-                u = s * math.cos(math.radians(270 - d))
-                v = s * math.sin(math.radians(270 - d))
-                
-                # Broadcast this real data across the spatial grid (30x26)
-                # We add a slight spatial gradient so the Graph Neural Network can detect movement
+            for l in range(self.lead_times):
+                # We interpolate the 4 cities across the 30x26 grid using inverse distance weighting (IDW)
                 for y in range(self.lat_size):
                     for x in range(self.lon_size):
-                        spatial_var = (y / self.lat_size) * 2.0 + (x / self.lon_size) * 2.0
                         
-                        base_deterministic[0, 0, l, y, x] = t - spatial_var # Temp
-                        base_deterministic[0, 1, l, y, x] = p + (spatial_var if p > 0 else 0) # Precip
-                        base_deterministic[0, 2, l, y, x] = u + spatial_var * 0.1 # U Wind
-                        base_deterministic[0, 3, l, y, x] = v - spatial_var * 0.1 # V Wind
-                        base_deterministic[0, 4, l, y, x] = press - spatial_var * 2 # Pressure
+                        # IDW Interpolation
+                        total_weight = 0.0
+                        interp_t, interp_p, interp_u, interp_v, interp_press = 0.0, 0.0, 0.0, 0.0, 0.0
                         
-            print("Successfully loaded real-world weather data.")
+                        for i, city in enumerate(cities):
+                            # Distance in grid cells
+                            dist = math.sqrt((y - city['grid_y'])**2 + (x - city['grid_x'])**2)
+                            weight = 1.0 / (dist + 0.1)**2 # Add 0.1 to avoid div by zero
+                            
+                            cd = city_data[i]
+                            t = (cd.get('temperature_2m', [20]*24)[l] or 20) + 273.15
+                            p = cd.get('precipitation', [0]*24)[l] or 0.0
+                            ws = cd.get('windspeed_10m', [0]*24)[l] or 0.0
+                            wd = cd.get('winddirection_10m', [0]*24)[l] or 0.0
+                            press = cd.get('surface_pressure', [1013]*24)[l] or 1013.0
+                            
+                            u = ws * math.cos(math.radians(270 - wd))
+                            v = ws * math.sin(math.radians(270 - wd))
+                            
+                            interp_t += t * weight
+                            interp_p += p * weight
+                            interp_u += u * weight
+                            interp_v += v * weight
+                            interp_press += press * weight
+                            total_weight += weight
+                            
+                        # Normalize by weights
+                        base_deterministic[0, 0, l, y, x] = interp_t / total_weight
+                        base_deterministic[0, 1, l, y, x] = interp_p / total_weight
+                        base_deterministic[0, 2, l, y, x] = interp_u / total_weight
+                        base_deterministic[0, 3, l, y, x] = interp_v / total_weight
+                        base_deterministic[0, 4, l, y, x] = interp_press / total_weight
+                        
         except Exception as e:
             print(f"Warning: Failed to fetch real data from Open-Meteo ({e}). Falling back to synthetic.")
             base_deterministic = torch.randn(1, 5, self.lead_times, self.lat_size, self.lon_size)

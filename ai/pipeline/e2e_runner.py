@@ -60,19 +60,23 @@ def run_e2e_pipeline(physics_mode="PASS"):
     # tensor into the hazard probability map!
     
     # Extract live precipitation data (Channel 1)
-    temp_data = nwp_input[0, 0, :, :, :] # Shape [9, 30, 26]
-    precip_data = nwp_input[0, 1, :, :, :] 
+    temp_data = nwp_input[0, 0, :, :, :] # Shape [9, 30, 26], Kelvin
+    precip_data = nwp_input[0, 1, :, :, :] # mm
     u_wind = nwp_input[0, 2, :, :, :]
     v_wind = nwp_input[0, 3, :, :, :]
     
-    # Scale precipitation (mm) directly into an extreme hazard probability (0.0 to 1.0)
-    precip_prob = torch.clamp(precip_data / 3.0, 0.0, 0.99)
+    # Scale strictly to EXTREME thresholds (no fake boosting)
+    # Precipitation > 5mm/hr is extreme
+    precip_prob = torch.clamp(precip_data / 5.0, 0.0, 0.99)
     
-    # FOR DEMONSTRATION: Boost the sensitivities of Heat, Cold, and Cyclone so they 
-    # trigger on normal weather, ensuring the UI is fully populated with all 4 hazards!
-    heat_prob = torch.clamp((temp_data - 290.0) / 10.0, 0.0, 0.99) # Trigger if temp > 17C
-    cold_prob = torch.clamp((305.0 - temp_data) / 10.0, 0.0, 0.99) # Trigger if temp < 32C
-    wind_prob = torch.clamp(torch.sqrt(u_wind**2 + v_wind**2) / 5.0, 0.0, 0.99) # Trigger if wind > 5
+    # Heat > 40C (313K) is extreme
+    heat_prob = torch.clamp((temp_data - 310.0) / 5.0, 0.0, 0.99)
+    
+    # Cold < 5C (278K) is extreme
+    cold_prob = torch.clamp((280.0 - temp_data) / 5.0, 0.0, 0.99)
+    
+    # Wind > 80 km/h (~22 m/s) is extreme
+    wind_prob = torch.clamp(torch.sqrt(u_wind**2 + v_wind**2) / 25.0, 0.0, 0.99)
     
     # Inject these real-world driven probabilities into the hazard classes
     prob_map[0, :, :, :] = heat_prob
