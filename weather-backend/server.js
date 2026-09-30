@@ -815,6 +815,7 @@ app.get('/api/ai/forecast', (req, res) => {
     anomalies: activeEvents.map(e => ({
       eventId: e.id,
       category: e.category,
+      location: e.location,
       maxAnomaly: parseFloat((e.severityScore / 20).toFixed(1)), // mock mapping
       probability: e.probability
     }))
