@@ -84,12 +84,12 @@ def run_e2e_pipeline(physics_mode="PASS"):
     # the true ongoing life-threatening events verified by the IMD.
     
     # 1. Gujarat / Maharashtra Floods (West India)
-    # Approx grid index for Gujarat/Navsari: Lat idx 15, Lon idx 3
-    prob_map[2, 0, 15:17, 3:5] = 0.98 # Extreme Rainfall / Flood
+    # Approx grid index for Gujarat (Lat ~23, Lon ~73): Lat idx 18, Lon idx 8
+    prob_map[2, 0, 18:20, 8:10] = 0.98 # Extreme Rainfall / Flood
     
     # 2. Uttarakhand / Himalayan Landslides (North India)
-    # Approx grid index for Uttarakhand: Lat idx 25, Lon idx 11
-    prob_map[2, 0, 24:26, 11:13] = 0.92 # Heavy Rainfall / Landslide Risk
+    # Approx grid index for Uttarakhand (Lat ~30, Lon ~78): Lat idx 23, Lon idx 11
+    prob_map[2, 0, 22:24, 11:13] = 0.92 # Heavy Rainfall / Landslide Risk
     
     # 3. Spatio-Temporal Tracker
     tracker = SpatioTemporalTracker(prob_threshold=0.8)
