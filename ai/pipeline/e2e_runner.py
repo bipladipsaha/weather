@@ -201,4 +201,13 @@ if __name__ == "__main__":
         mode = sys.argv[1]
     
     events = run_e2e_pipeline(physics_mode=mode)
-    print(json.dumps(events, indent=2))
+    
+    # Write directly to the output file to prevent log messages from corrupting the JSON
+    import os
+    output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'final_model', 'event', 'event_cards.json'))
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    
+    with open(output_path, "w") as f:
+        json.dump(events, f, indent=2)
+        
+    print(f"Successfully saved AI predictions to {output_path}")

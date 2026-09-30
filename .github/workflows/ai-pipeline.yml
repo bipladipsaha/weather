@@ -28,7 +28,7 @@ jobs:
       - name: Run E2E AI Pipeline
         run: |
           # Run the pipeline and save the output over existing event JSON
-          python ai/pipeline/e2e_runner.py > final_model/event/event_cards.json
+          python ai/pipeline/e2e_runner.py
 
       - name: Commit and Push New Weather Data
         run: |
