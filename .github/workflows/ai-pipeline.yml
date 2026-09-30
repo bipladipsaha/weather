@@ -1,0 +1,36 @@
+name: Run AI Weather Pipeline
+
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *' # Runs every 6 hours
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  run-ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install AI Dependencies
+        run: |
+          cd ai
+          pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt || pip install numpy xarray dask
+
+      - name: Run E2E AI Pipeline
+        run: |
+          # Run the pipeline and save the output over existing event JSON
+          python ai/pipeline/e2e_runner.py > final_model/event/event_cards.json
+
+      - name: Commit and Push New Weather Data
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add final_model/event/event_cards.json
+          git commit -m "Automated AI Update: New Weather Forecast" || echo "No changes to commit"
+          git push

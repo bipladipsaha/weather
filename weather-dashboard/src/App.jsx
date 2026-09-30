@@ -87,7 +87,8 @@ export default function App() {
       setRainfallLoading(true);
       setRainfallError(null);
       try {
-        const res = await fetch(`http://localhost:3001/api/rainfall/downscaled?date=${rainfallDate}&layer=${rainfallLayer}`);
+        const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+        const res = await fetch(`${apiUrl}/api/rainfall/downscaled?date=${rainfallDate}&layer=${rainfallLayer}`);
         const data = await res.json();
         if (data.success === false || data.error) throw new Error(data.error || 'Failed to load raster');
         setRainfallRaster(data.raster_base64);
@@ -115,12 +116,13 @@ export default function App() {
     const fetchAllData = async () => {
       try {
         setLoading(true);
+        const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
         const [sysRes, healthRes, eventsRes, forecastRes, impactsRes] = await Promise.all([
-          fetch('http://localhost:3001/api/system-status').catch(() => null),
-          fetch('http://localhost:3001/api/ai/health').catch(() => null),
-          fetch('http://localhost:3001/api/ai/events').catch(() => null),
-          fetch('http://localhost:3001/api/ai/forecast').catch(() => null),
-          fetch('http://localhost:3001/api/ai/impacts').catch(() => null)
+          fetch(`${apiUrl}/api/system-status`).catch(() => null),
+          fetch(`${apiUrl}/api/ai/health`).catch(() => null),
+          fetch(`${apiUrl}/api/ai/events`).catch(() => null),
+          fetch(`${apiUrl}/api/ai/forecast`).catch(() => null),
+          fetch(`${apiUrl}/api/ai/impacts`).catch(() => null)
         ]);
 
         if (sysRes?.ok) setSystemStatus(await sysRes.json());
