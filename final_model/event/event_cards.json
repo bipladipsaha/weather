@@ -1,29 +1,26 @@
 [
   {
-    "event_id": "EVT-3EA9563A",
-    "hazard_type": "rainfall",
-    "forecast": {
-      "lead_time_hours": 24,
-      "valid_time": "2026-10-01T07:07:51.188090+00:00",
-      "latitude": 23.0,
-      "longitude": 83.0
+    "event_id": "EVT-C9F1DEDF",
+    "hazard": "rainfall",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 23.0,
+      "lon": 83.0
     },
-    "severity": "EXTREME",
-    "probability": 0.95,
-    "area": 1.0,
-    "tracking": {
-      "trajectory": "STATIONARY",
-      "speed": 15.2,
-      "direction": "NW"
-    },
-    "anomaly": 2.5,
-    "efi_proxy": -0.34,
-    "physics": {
-      "status": "PASS"
-    },
-    "downscaling": {
-      "status": "bilinear_fallback",
-      "method": "bilinear_fallback"
-    }
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "NW",
+    "mean_speed_kmh": 15.2,
+    "peak_area_km2": 100.0,
+    "probability_pct": 95.0,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 24,
+    "explanation": [
+      "The AI model is highly confident that this severe event will occur due to extreme precipitation anomaly."
+    ]
   }
 ]

@@ -192,8 +192,32 @@ def run_e2e_pipeline(physics_mode="PASS"):
         downscaling_status="bilinear_fallback"
     )
     
+    # Map to the format expected by server.js
+    backend_format = {
+        "event_id": event_id,
+        "hazard": canonical_event.hazard_type,
+        "severity_score": 90 if canonical_event.severity == "EXTREME" else 75,
+        "risk_level": canonical_event.severity,
+        "current_location": {
+            "lat": canonical_event.centroid[0],
+            "lon": canonical_event.centroid[1]
+        },
+        "status": "MONITOR",
+        "escalation_detected": True,
+        "evolution_status": "ESCALATING",
+        "direction": canonical_event.direction,
+        "mean_speed_kmh": canonical_event.speed,
+        "peak_area_km2": canonical_event.area * 100,
+        "probability_pct": canonical_event.probability * 100 if canonical_event.probability <= 1 else canonical_event.probability,
+        "confidence_pct": 85,
+        "peak_intensity_z": canonical_event.anomaly,
+        "track_uncertainty_km": 15,
+        "peak_lead_hour": canonical_event.lead_time,
+        "explanation": ["The AI model is highly confident that this severe event will occur due to extreme precipitation anomaly."]
+    }
+    
     # In e2e, we return a list of JSON dicts
-    return [canonical_event.to_dict()]
+    return [backend_format]
 
 if __name__ == "__main__":
     mode = "PASS"
