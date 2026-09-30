@@ -20,7 +20,7 @@ jobs:
         run: |
           cd ai
           pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-          pip install -r requirements.txt || pip install numpy xarray dask
+          pip install numpy xarray dask scipy metpy cdsapi dgl diffusers
 
       - name: Run E2E AI Pipeline
         run: |
