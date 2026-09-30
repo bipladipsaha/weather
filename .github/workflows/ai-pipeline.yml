@@ -5,6 +5,9 @@ on:
     - cron: '0 0,6,12,18 * * *' # Runs every 6 hours
   workflow_dispatch: # Allows manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   run-ai:
     runs-on: ubuntu-latest
