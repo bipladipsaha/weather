@@ -1,14 +1,10 @@
-Connecting to live NEPS-G ensemble feeds...
-Fetching real weather data from Open-Meteo API...
-Successfully loaded real-world weather data.
-Hooking up 30-year ERA5 / IMDAA historical data pipeline for True EFI...
 [
   {
-    "event_id": "EVT-E1175D60",
+    "event_id": "EVT-3EA9563A",
     "hazard_type": "rainfall",
     "forecast": {
       "lead_time_hours": 24,
-      "valid_time": "2026-10-01T06:52:46.269424+00:00",
+      "valid_time": "2026-10-01T07:07:51.188090+00:00",
       "latitude": 23.0,
       "longitude": 83.0
     },
@@ -21,7 +17,7 @@ Hooking up 30-year ERA5 / IMDAA historical data pipeline for True EFI...
       "direction": "NW"
     },
     "anomaly": 2.5,
-    "efi_proxy": -0.944,
+    "efi_proxy": -0.34,
     "physics": {
       "status": "PASS"
     },
