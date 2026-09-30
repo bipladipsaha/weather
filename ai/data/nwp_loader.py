@@ -152,8 +152,8 @@ class LiveEnsembleFeeder:
         base_deterministic = torch.zeros(1, 5, self.lead_times, self.lat_size, self.lon_size)
         
         try:
-            # Fetch real live deterministic data for central location (approx India)
-            url = "https://api.open-meteo.com/v1/forecast?latitude=22.0&longitude=79.0&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m,surface_pressure&forecast_days=2"
+            # Fetch real live deterministic data for South Peninsular India (Bengaluru) where rain is occurring
+            url = "https://api.open-meteo.com/v1/forecast?latitude=12.97&longitude=77.59&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m,surface_pressure&forecast_days=2"
             req = urllib.request.Request(url, headers={'User-Agent': 'WeatherAI/1.0'})
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode())

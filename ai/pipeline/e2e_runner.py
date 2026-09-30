@@ -54,24 +54,17 @@ def run_e2e_pipeline(physics_mode="PASS"):
     # Apply sigmoid to get probabilities
     prob_map = torch.sigmoid(prob_map)
     
-    # For testing, we ensure there is an extreme event by forcing a high probability
-    prob_map[2, 0, 15, 13] = 0.95 # Hazard index 2 = rainfall at lead 0
-    prob_map[2, 1, 14, 12] = 0.90 # Moving NW at lead 1
+    # Let the model output its real probabilities based on the Open-Meteo data
+    # (Removed forced fake event injection)
     
     # 3. Spatio-Temporal Tracker
     tracker = SpatioTemporalTracker(prob_threshold=0.8)
     events = tracker.track_events(prob_map) # Extract events from the batch
     
     if len(events) == 0:
-        # Fallback if no event detected
-        event_dict = {
-            "id": f"EVT-{uuid.uuid4().hex[:8].upper()}",
-            "hazard_type": 2, # rainfall
-            "centroid_idx": (15, 13),
-            "max_prob": 0.95,
-            "area": 1
-        }
-        events.append(event_dict)
+        # Real-world data shows no severe hazards! Return an empty array.
+        print("No severe weather hazards detected in the current 4D tensor.")
+        return []
         
     main_event = events[0]
     
