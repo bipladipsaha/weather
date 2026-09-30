@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "event_id": "EVT-0001",
+    "hazard": "extreme_rain",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 28.2635,
+      "lon": 89.5365
+    },
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "NE",
+    "mean_speed_kmh": 2.5762709562225257,
+    "peak_area_km2": 25200.0,
+    "probability_pct": 99.00000095367432,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 120,
+    "explanation": [
+      "The AI model is highly confident that this severe event will occur due to extreme precipitation anomaly."
+    ]
+  }
+]

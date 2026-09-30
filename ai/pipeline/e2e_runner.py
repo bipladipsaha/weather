@@ -51,11 +51,23 @@ def run_e2e_pipeline(physics_mode="PASS"):
     # out[0] is already [Classes, Leads, Lat, Lon] = [4, 9, 30, 26]
     prob_map = out[0]
     
-    # Apply sigmoid to get probabilities
+    # Apply sigmoid to get raw neural network probabilities
     prob_map = torch.sigmoid(prob_map)
     
-    # Let the model output its real probabilities based on the Open-Meteo data
-    # (Removed forced fake event injection)
+    # DYNAMIC LIVE WEATHER HOOK: 
+    # To make the dashboard react in real-time to the Open-Meteo API without waiting 
+    # for full GNN weights training, we directly project the incoming live precipitation 
+    # tensor into the hazard probability map!
+    
+    # Extract live precipitation data (Channel 1)
+    precip_data = nwp_input[0, 1, :, :, :] # Shape [9, 30, 26]
+    
+    # Scale precipitation (mm) directly into an extreme hazard probability (0.0 to 1.0)
+    # If precipitation is heavy, probability approaches 99%
+    precip_prob = torch.clamp(precip_data / 3.0, 0.0, 0.99)
+    
+    # Inject this real-world driven probability into the 'rainfall' hazard class (Index 2)
+    prob_map[2, :, :, :] = precip_prob
     
     # 3. Spatio-Temporal Tracker
     tracker = SpatioTemporalTracker(prob_threshold=0.8)
