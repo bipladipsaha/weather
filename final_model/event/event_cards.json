@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "event_id": "EVT-0001",
+    "hazard": "extreme_rain",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 19.0517,
+      "lon": 65.6
+    },
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "STATIONARY",
+    "mean_speed_kmh": 0.0,
+    "peak_area_km2": 400.0,
+    "probability_pct": 98.00000190734863,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 0,
+    "explanation": [
+      "The AI model is highly confident that this severe extreme_rain event will occur."
+    ]
+  },
+  {
+    "event_id": "EVT-0002",
+    "hazard": "extreme_rain",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 33.0172,
+      "lon": 78.4
+    },
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "STATIONARY",
+    "mean_speed_kmh": 0.0,
+    "peak_area_km2": 400.0,
+    "probability_pct": 92.00000166893005,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 0,
+    "explanation": [
+      "The AI model is highly confident that this severe extreme_rain event will occur."
+    ]
+  }
+]

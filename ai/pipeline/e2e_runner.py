@@ -85,11 +85,11 @@ def run_e2e_pipeline(physics_mode="PASS"):
     
     # 1. Gujarat / Maharashtra Floods (West India)
     # Approx grid index for Gujarat/Navsari: Lat idx 15, Lon idx 3
-    prob_map[2, 0, 15, 3] = 0.98 # Extreme Rainfall / Flood
+    prob_map[2, 0, 15:17, 3:5] = 0.98 # Extreme Rainfall / Flood
     
     # 2. Uttarakhand / Himalayan Landslides (North India)
     # Approx grid index for Uttarakhand: Lat idx 25, Lon idx 11
-    prob_map[2, 0, 25, 11] = 0.92 # Heavy Rainfall / Landslide Risk
+    prob_map[2, 0, 24:26, 11:13] = 0.92 # Heavy Rainfall / Landslide Risk
     
     # 3. Spatio-Temporal Tracker
     tracker = SpatioTemporalTracker(prob_threshold=0.8)
