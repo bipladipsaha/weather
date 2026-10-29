@@ -2,19 +2,19 @@
   {
     "event_id": "EVT-0001",
     "hazard": "extreme_rain",
-    "severity_score": 75,
-    "risk_level": "SEVERE",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
     "current_location": {
-      "lat": 22.5862,
-      "lon": 95.9704
+      "lat": 22.6724,
+      "lon": 95.9333
     },
     "status": "MONITOR",
     "escalation_detected": true,
     "evolution_status": "ESCALATING",
     "direction": "STATIONARY",
     "mean_speed_kmh": 0.0,
-    "peak_area_km2": 2700.0,
-    "probability_pct": 88.97444605827332,
+    "peak_area_km2": 2400.0,
+    "probability_pct": 90.99102020263672,
     "confidence_pct": 85,
     "peak_intensity_z": 2.5,
     "track_uncertainty_km": 15,
@@ -53,20 +53,20 @@
     "severity_score": 90,
     "risk_level": "EXTREME",
     "current_location": {
-      "lat": 29.9138,
-      "lon": 78.4
+      "lat": 34.3216,
+      "lon": 75.4783
     },
     "status": "MONITOR",
     "escalation_detected": true,
     "evolution_status": "ESCALATING",
-    "direction": "STATIONARY",
-    "mean_speed_kmh": 0.0,
-    "peak_area_km2": 400.0,
-    "probability_pct": 92.00000166893005,
+    "direction": "NW",
+    "mean_speed_kmh": 11.708443943006898,
+    "peak_area_km2": 13800.0,
+    "probability_pct": 99.00000095367432,
     "confidence_pct": 85,
     "peak_intensity_z": 2.5,
     "track_uncertainty_km": 15,
-    "peak_lead_hour": 0,
+    "peak_lead_hour": 48,
     "explanation": [
       "The AI model is highly confident that this severe extreme_rain event will occur."
     ]
