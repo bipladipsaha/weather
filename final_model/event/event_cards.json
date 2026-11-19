@@ -46,5 +46,29 @@
     "explanation": [
       "The AI model is highly confident that this severe extreme_rain event will occur."
     ]
+  },
+  {
+    "event_id": "EVT-0003",
+    "hazard": "extreme_rain",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 23.0106,
+      "lon": 95.9385
+    },
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "NE",
+    "mean_speed_kmh": 1.1190954093187262,
+    "peak_area_km2": 3900.0,
+    "probability_pct": 90.8868670463562,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 120,
+    "explanation": [
+      "The AI model is highly confident that this severe extreme_rain event will occur."
+    ]
   }
 ]
