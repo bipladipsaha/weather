@@ -1,6 +1,30 @@
 [
   {
     "event_id": "EVT-0001",
+    "hazard": "extreme_cold",
+    "severity_score": 90,
+    "risk_level": "EXTREME",
+    "current_location": {
+      "lat": 17.5,
+      "lon": 80.0
+    },
+    "status": "MONITOR",
+    "escalation_detected": true,
+    "evolution_status": "ESCALATING",
+    "direction": "STATIONARY",
+    "mean_speed_kmh": 0.0,
+    "peak_area_km2": 78000.0,
+    "probability_pct": 99.00000095367432,
+    "confidence_pct": 85,
+    "peak_intensity_z": 2.5,
+    "track_uncertainty_km": 15,
+    "peak_lead_hour": 120,
+    "explanation": [
+      "The AI model is highly confident that this severe extreme_cold event will occur."
+    ]
+  },
+  {
+    "event_id": "EVT-0002",
     "hazard": "extreme_rain",
     "severity_score": 90,
     "risk_level": "EXTREME",
@@ -24,7 +48,7 @@
     ]
   },
   {
-    "event_id": "EVT-0002",
+    "event_id": "EVT-0003",
     "hazard": "extreme_rain",
     "severity_score": 90,
     "risk_level": "EXTREME",
